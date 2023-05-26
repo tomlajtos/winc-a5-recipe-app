@@ -5,7 +5,7 @@ export const RecipeList = ({ recipes }) => {
   return (
     <Container>
       <div>Recipe List</div>
-      <RecipeCard recipe={recipes[19]} />
+      <RecipeCard recipe={recipes[7]} />
     </Container>
   );
 };
