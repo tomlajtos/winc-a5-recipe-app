@@ -37,4 +37,4 @@ Final project for React Basics module
 
 ## Extra Challenge
 
-- Users can filter on vegan,vegetarian, pescetarian.
+- Users can filter on vegan,vegetarian, pescetarian options.
