@@ -1,5 +1,5 @@
-import { Imput } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 
-export const TextImput = () => {
-  return <Imput>Imput</Imput>;
+export const TextInput = () => {
+  return <Input placeholder="Text Input"></Input>;
 };
