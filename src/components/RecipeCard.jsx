@@ -26,7 +26,6 @@ export const fixLabel = (label) => {
   } else {
     return label;
   }
-  return newLabel;
 };
 
 export const RecipeCard = ({ recipe, handleClick }) => {
