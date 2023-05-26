@@ -9,7 +9,6 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
-// import { fixLabel } from "../utils/utils.js";
 
 /**
  * Remove the word "recipes" from recipe.label
@@ -19,9 +18,8 @@ import {
  */
 export const fixLabel = (label) => {
   const words = label.toLowerCase().split(" ");
-  let newLabel;
   if (words.includes("recipes")) {
-    newLabel = words
+    return words
       .filter((word) => word !== "recipes")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
