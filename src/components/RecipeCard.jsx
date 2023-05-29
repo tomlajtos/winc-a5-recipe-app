@@ -9,25 +9,9 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
+import { fixLabel } from "../utils/globalFunctions";
 
-/**
- * Remove the word "recipes" from recipe.label
- * ---
- * Each recipe obj. in the db-file represents a single recipe,
- * so the word "recipes" in some of the labels does not make any sense.
- */
-const fixLabel = (label) => {
-  const words = label.toLowerCase().split(" ");
-  if (words.includes("recipes")) {
-    return words
-      .filter((word) => word !== "recipes")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ");
-  } else {
-    return label;
-  }
-};
-
+// helper functions local to RecipeCard
 const showLabels = (labels, isHealthLabel = false) => {
   if (labels.length > 0) {
     return isHealthLabel
