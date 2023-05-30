@@ -18,8 +18,9 @@ import {
   ListItem,
 } from "@chakra-ui/react";
 import { fixLabel } from "../utils/globalFunctions";
+import { Button } from "../components/ui/Button";
 
-export const RecipePage = ({ recipe }) => {
+export const RecipePage = ({ recipe, handleButtonClick }) => {
   const {
     label,
     image,
@@ -41,8 +42,11 @@ export const RecipePage = ({ recipe }) => {
     },
   } = recipe;
   const totalNutrients = [energy, protein, fat, carbs, cholesterol, sodium];
-
+  const handleClick = () => {
+    handleButtonClick(null);
+  };
   console.log(recipe);
+
   return (
     <Center minH={"100vh"} flexDir="column" py={8} gap={8}>
       <Heading size={"2xl"}>{fixLabel(label)}</Heading>
@@ -139,6 +143,7 @@ export const RecipePage = ({ recipe }) => {
           </Table>
         </TableContainer>
       </Flex>
+      <Button handleClick={handleClick} text={"back to all recipes"} />
     </Center>
   );
 };
