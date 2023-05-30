@@ -6,18 +6,18 @@ import { useState } from "react";
 
 export const RecipeListPage = () => {
   const recipes = data.hits.map((hit) => hit.recipe);
-  const testRecipe = recipes[7];
-  // console.log("testObj:", testRecipe);
-  // const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [selectedRecipe, setSelectedRecipe] = useState(testRecipe);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   return (
     <Center minH="100vh" flexDir="column">
       {selectedRecipe ? (
-        <RecipePage recipe={selectedRecipe} />
+        <RecipePage
+          recipe={selectedRecipe}
+          handleButtonClick={setSelectedRecipe}
+        />
       ) : (
         <>
           <Heading>Recipe App</Heading>
-          <RecipeSearch recipes={recipes} />
+          <RecipeSearch recipes={recipes} handleClick={setSelectedRecipe} />
         </>
       )}
     </Center>

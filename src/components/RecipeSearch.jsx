@@ -3,7 +3,7 @@ import { RecipeList } from "./RecipeList";
 import { TextInput } from "./ui/TextInput";
 import { useState } from "react";
 
-export const RecipeSearch = ({ recipes }) => {
+export const RecipeSearch = ({ recipes, handleClick }) => {
   const [searchField, setSearchField] = useState("");
   // split user input in serchfield by below special charakters and white-space,
   // hyphen is not included since it can be found in health labels.
@@ -32,7 +32,10 @@ export const RecipeSearch = ({ recipes }) => {
   return (
     <Flex direction={"column"} align={"center"} gap={8} minW={"100%"} py={8}>
       <TextInput handleChange={handleChange} />
-      <RecipeList recipes={findMatchingRecipes(recipes, searchTerms)} />
+      <RecipeList
+        recipes={findMatchingRecipes(recipes, searchTerms)}
+        handleClick={handleClick}
+      />
     </Flex>
   );
 };
