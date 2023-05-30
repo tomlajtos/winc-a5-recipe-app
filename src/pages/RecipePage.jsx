@@ -45,6 +45,8 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
   const handleClick = () => {
     handleButtonClick(null);
   };
+  const betterKeyThenIndex = (prefix, item, index) =>
+    prefix.toString() + (index + 1) * item.toString().length;
   console.log(recipe);
 
   return (
@@ -100,7 +102,9 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <Heading size="md">Health Labels</Heading>
         <Wrap>
           {healthLabels.map((label, index) => (
-            <Tag key={index}>{label}</Tag>
+            <Tag key={betterKeyThenIndex("dl_", label, index)}>
+              {label}-{betterKeyThenIndex("dl_", label, index)}
+            </Tag>
           ))}
         </Wrap>
       </Flex>
@@ -108,7 +112,9 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <Heading size="md">Diet Labels</Heading>
         <Wrap>
           {dietLabels.map((label, index) => (
-            <Tag key={index}>{label}</Tag>
+            <Tag key={betterKeyThenIndex("dl_", label, index)}>
+              {label}-{betterKeyThenIndex("dl_", label, index)}
+            </Tag>
           ))}
         </Wrap>
       </Flex>
@@ -116,7 +122,9 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <Heading size="md">Cautions</Heading>
         <Wrap>
           {cautions.map((label, index) => (
-            <Tag key={index}>{label}</Tag>
+            <Tag key={betterKeyThenIndex("caut_", label, index)}>
+              {label}-{betterKeyThenIndex("caut_", label, index)}
+            </Tag>
           ))}
         </Wrap>
       </Flex>
@@ -133,8 +141,10 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
             </Thead>
             <Tbody>
               {totalNutrients.map(({ label, quantity, unit }, index) => (
-                <Tr key={index}>
-                  <Td>{label}</Td>
+                <Tr key={betterKeyThenIndex("nutr_", label, index)}>
+                  <Td>
+                    {label}-{betterKeyThenIndex("nutr_", label, index)}
+                  </Td>
                   <Td isNumeric>{Math.round(quantity)}</Td>
                   <Td>{unit}</Td>
                 </Tr>
