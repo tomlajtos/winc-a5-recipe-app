@@ -9,10 +9,14 @@ import {
   Text,
   Heading,
 } from "@chakra-ui/react";
-import { fixLabel } from "../utils/globalFunctions";
+import {
+  fixLabel,
+  betterKeyThenIndex,
+  generateKeyPrefix,
+} from "../utils/globalFunctions";
 
 // helper functions local to RecipeCard
-const showLabels = (labels, isHealthLabel = false) => {
+const showLabels = function (labels, isHealthLabel = false) {
   if (labels.length > 0) {
     return isHealthLabel
       ? labels
@@ -22,22 +26,64 @@ const showLabels = (labels, isHealthLabel = false) => {
               label.toLowerCase() === "vegetarian"
           )
           .map((label, index) => (
-            <Text bg={"green.100"} key={index}>
+            <Text
+              bg={"green.100"}
+              key={betterKeyThenIndex(labels, label, index)}
+            >
               {label}
             </Text>
           ))
       : labels.map((label, index) => (
-          <Text bg={"orange.100"} key={index}>
+          <Text
+            bg={"orange.100"}
+            key={betterKeyThenIndex(labels, label, index)}
+          >
             {label}
           </Text>
         ));
   }
 };
 
+//EXPERIMENTAL
+const showInfoLabels = function (labels, prefix, selectiveLabels) {
+  if (labels.length && selectiveLabels) {
+    return labels
+      .filter((label) => selectiveLabels.includes(label))
+      .map((label, index) => {
+        // console.log(
+        //   "INFO:",
+        //   <Text
+        //     bg={"purple.100"}
+        //     key={betterKeyThenIndex(prefix, label, index)}
+        //   >
+        //     {label}
+        //   </Text>
+        // );
+        return (
+          <Text
+            bg={"purple.100"}
+            key={betterKeyThenIndex(prefix, label, index)}
+          >
+            {label}
+          </Text>
+        );
+      });
+  } else if (labels.length) {
+    return labels.map((label, index) => (
+      <Text bg={"purple.200"} key={betterKeyThenIndex(prefix, label, index)}>
+        {label}
+      </Text>
+    ));
+  } else {
+    return;
+  }
+};
+// END OF EXPERIMENTAL
+
 const showTypes = (types) => {
   if (types.length > 0) {
     return types.map((type, index) => (
-      <Text bg={"gray.100"} key={index}>
+      <Text bg={"gray.100"} key={betterKeyThenIndex(types, type, index)}>
         {type}
       </Text>
     ));
@@ -70,9 +116,15 @@ export const RecipeCard = ({ recipe, handleClick }) => {
           {fixLabel(label)}
         </Heading>
         {showTypes(mealType)}
+        {showInfoLabels(mealType, "mt")}
         {showTypes(dishType)}
         {showLabels(healthLabels, true)}
         {showLabels(dietLabels)}
+        {showInfoLabels(healthLabels, generateKeyPrefix("hl_", label), [
+          "Vegan",
+          "Vegetarian",
+          "Keto",
+        ])}
         {cautions.length > 0 &&
           cautions.map((type, index) => (
             <Text bg={"red.100"} key={index}>
