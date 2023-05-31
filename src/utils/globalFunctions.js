@@ -18,3 +18,25 @@ export const fixLabel = (label) => {
     return label;
   }
 };
+
+/**
+ * Just for fun, don't judge me...
+ * An attempt to generate uniqe non random keys for iterable components/elements
+ * @param {string} prefix - someting that resambles the data thats being iterated on with .map()
+ * @param {string/number}  item of the iterable data
+ * @param {number} index of item
+ * @return {string} a hoppefully uniqe string that can be used as a key prop of a React component */
+export const betterKeyThenIndex = (prefix, item, index) => {
+  const str = item.toString();
+  const len = str.length;
+  const fChC = str.charCodeAt(0);
+  const lChC = str.charCodeAt(len - 1);
+  const xtraChC = len < 4 ? fChC + lChC : str.charCodeAt(3);
+  const num1 = (len + fChC + lChC) * len + xtraChC - index ** 2;
+  const num2 = Math.ceil(
+    Math.sqrt(Number(`${num1}${index}${len}`)) + len ** 2 * index ** 2
+  );
+  return (
+    prefix + num1.toString() + `-${lChC + fChC}${xtraChC}-` + num2.toString()
+  );
+};
