@@ -1,5 +1,4 @@
 //TODO: make separate components for data-groups
-//TODO messed up recipe card click > fix that
 import {
   Flex,
   Center,
@@ -18,7 +17,7 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
-import { fixLabel } from "../utils/globalFunctions";
+import { fixLabel, betterKeyThenIndex } from "../utils/globalFunctions";
 import { Button } from "../components/ui/Button";
 
 export const RecipePage = ({ recipe, handleButtonClick }) => {
@@ -46,9 +45,6 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
   const handleClick = () => {
     handleButtonClick(null);
   };
-  const betterKeyThenIndex = (prefix, item, index) =>
-    prefix.toString() + (index + 1) * item.toString().length;
-  console.log(recipe);
 
   return (
     <Center minH={"100vh"} flexDir="column" py={8} gap={8}>
@@ -58,9 +54,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <Heading size="md">Dish Type</Heading>
         <Wrap>
           {dishType.map((label, index) => (
-            <Tag key={betterKeyThenIndex("dt_", label, index)}>
-              {label} - {betterKeyThenIndex("dt_", label, index)}
-            </Tag>
+            <Tag key={betterKeyThenIndex("dt_", label, index)}>{label}</Tag>
           ))}
         </Wrap>
       </Flex>
@@ -68,9 +62,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <Heading size="md">Meal Type</Heading>
         <Wrap>
           {mealType.map((label, index) => (
-            <Tag key={betterKeyThenIndex("mt_", label, index)}>
-              {label} - {betterKeyThenIndex("mt_", label, index)}
-            </Tag>
+            <Tag key={betterKeyThenIndex("mt_", label, index)}>{label}</Tag>
           ))}
         </Wrap>
       </Flex>
@@ -79,10 +71,10 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <List listStyleType={"none"} mx={0}>
           {ingredients.map((ingr, index) => (
             <ListItem
-              key={betterKeyThenIndex("ingr_", ingr, index)}
+              key={betterKeyThenIndex("ingr_", ingr.text, index)}
               textAlign={"left"}
             >
-              {ingr.text} - {betterKeyThenIndex("ingr_", ingr, index)}
+              {ingr.text}
             </ListItem>
           ))}
         </List>
@@ -103,9 +95,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <Heading size="md">Health Labels</Heading>
         <Wrap>
           {healthLabels.map((label, index) => (
-            <Tag key={betterKeyThenIndex("dl_", label, index)}>
-              {label}-{betterKeyThenIndex("dl_", label, index)}
-            </Tag>
+            <Tag key={betterKeyThenIndex("hl_", label, index)}>{label}</Tag>
           ))}
         </Wrap>
       </Flex>
@@ -113,9 +103,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <Heading size="md">Diet Labels</Heading>
         <Wrap>
           {dietLabels.map((label, index) => (
-            <Tag key={betterKeyThenIndex("dl_", label, index)}>
-              {label}-{betterKeyThenIndex("dl_", label, index)}
-            </Tag>
+            <Tag key={betterKeyThenIndex("dl_", label, index)}>{label}</Tag>
           ))}
         </Wrap>
       </Flex>
@@ -123,9 +111,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         <Heading size="md">Cautions</Heading>
         <Wrap>
           {cautions.map((label, index) => (
-            <Tag key={betterKeyThenIndex("caut_", label, index)}>
-              {label}-{betterKeyThenIndex("caut_", label, index)}
-            </Tag>
+            <Tag key={betterKeyThenIndex("caut_", label, index)}>{label}</Tag>
           ))}
         </Wrap>
       </Flex>
@@ -143,9 +129,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
             <Tbody>
               {totalNutrients.map(({ label, quantity, unit }, index) => (
                 <Tr key={betterKeyThenIndex("nutr_", label, index)}>
-                  <Td>
-                    {label}-{betterKeyThenIndex("nutr_", label, index)}
-                  </Td>
+                  <Td>{label} </Td>
                   <Td isNumeric>{Math.round(quantity)}</Td>
                   <Td>{unit}</Td>
                 </Tr>
