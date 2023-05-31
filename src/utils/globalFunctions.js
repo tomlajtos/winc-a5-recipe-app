@@ -40,3 +40,10 @@ export const betterKeyThenIndex = (prefix, item, index) => {
     prefix + num1.toString() + `-${lChC + fChC}${xtraChC}-` + num2.toString()
   );
 };
+// returns a complex key prefix from provided custom string and data specific string
+// to be used with above key-gen function
+export const generateKeyPrefix = function (customStr, specStr) {
+  return `${customStr}${specStr
+    .split(/\W/)
+    .reduce((res, subStr) => res.concat(subStr.toLowerCase().charAt(0)), "")}_`;
+};
