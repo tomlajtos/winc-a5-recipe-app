@@ -30,7 +30,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
     dietLabels,
     healthLabels,
     cautions,
-    ingredients,
+    ingredientLines,
     yield: servingSize,
     totalNutrients: {
       ENERC_KCAL: energy,
@@ -69,12 +69,12 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
       <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
         <Heading size="md">Ingredients</Heading>
         <List listStyleType={"none"} mx={0}>
-          {ingredients.map((ingr, index) => (
+          {ingredientLines.map((line, index) => (
             <ListItem
-              key={betterKeyThenIndex("ingr_", ingr.text, index)}
+              key={betterKeyThenIndex("ingr_", line, index)}
               textAlign={"left"}
             >
-              {ingr.text}
+              {line}
             </ListItem>
           ))}
         </List>
