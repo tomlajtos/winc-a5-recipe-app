@@ -1,76 +1,30 @@
 import {
+  Wrap,
+  WrapItem,
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   Image,
   Tag,
+  TagLabel,
+  TagLeftIcon,
   Highlight,
   Text,
   Heading,
-  Center,
+  Stack,
+  Icon,
 } from "@chakra-ui/react";
+import { TbReportAnalytics } from "react-icons/tb";
+import { TbPlant2 } from "react-icons/tb";
+import { TbExclamationCircle } from "react-icons/tb";
 import {
   fixLabel,
   betterKeyThenIndex,
   generateKeyPrefix,
 } from "../utils/globalFunctions";
 
-// helper functions local to RecipeCard
-const showLabels = function (labels, isHealthLabel = false) {
-  if (labels.length > 0) {
-    return isHealthLabel
-      ? labels
-          .filter(
-            (label) =>
-              label.toLowerCase() === "vegan" ||
-              label.toLowerCase() === "vegetarian"
-          )
-          .map((label, index) => (
-            <Text
-              bg={"green.100"}
-              key={betterKeyThenIndex(labels, label, index)}
-            >
-              {label}
-            </Text>
-          ))
-      : labels.map((label, index) => (
-          <Text
-            bg={"orange.100"}
-            key={betterKeyThenIndex(labels, label, index)}
-          >
-            {label}
-          </Text>
-        ));
-  }
-};
-
 //EXPERIMENTAL
-const showInfoLabels = function (labels, prefix, selectiveLabels) {
-  if (labels.length && selectiveLabels) {
-    return labels
-      .filter((label) => selectiveLabels.includes(label))
-      .map((label, index) => {
-        return (
-          <Text
-            bg={"purple.100"}
-            key={betterKeyThenIndex(prefix, label, index)}
-          >
-            {label}
-          </Text>
-        );
-      });
-  } else if (labels.length) {
-    return labels.map((label, index) => (
-      <Text bg={"purple.200"} key={betterKeyThenIndex(prefix, label, index)}>
-        {label}
-      </Text>
-    ));
-  } else {
-    return;
-  }
-};
-//=================================================================
 const filterRecipeInfo = function (info, specifiedInfo) {
   let isInfo;
   !info // this checks for falsy values (Importantely, resolves null as a velue beofre it would get to .length method)
@@ -103,42 +57,35 @@ const filterRecipeInfo = function (info, specifiedInfo) {
     }
   }
   return;
-  // if (Object.prototype.isPrototypeOf(info))
-  // if ("object" === typeof info)
 };
 
 const showInfoTags = function (
   filteredInfo,
   prefix,
-  color = "gray.100",
-  textColor = "gray.900",
-  textTransform = "none"
+  textTransform = "none",
+  colorScheme,
+  icon,
+  fontSize,
+  textColor
 ) {
   if (filteredInfo) {
     return filteredInfo.map((inf, index) => (
       <Tag
         key={betterKeyThenIndex(prefix, inf, index)}
-        bg={color}
-        textColor={textColor}
+        fontWeight={600}
         textTransform={textTransform}
+        colorScheme={colorScheme}
+        icon={icon}
+        fontSize={fontSize}
+        textColor={textColor}
       >
-        {inf}
+        <TagLeftIcon>{icon}</TagLeftIcon>
+        <TagLabel>{inf}</TagLabel>
       </Tag>
     ));
   }
 };
 // END OF EXPERIMENTAL
-
-const showTypes = (types) => {
-  if (types.length > 0) {
-    return types.map((type, index) => (
-      <Text bg={"gray.100"} key={betterKeyThenIndex(types, type, index)}>
-        {type}
-      </Text>
-    ));
-  }
-};
-
 export const RecipeCard = ({ recipe, handleClick }) => {
   const {
     image,
@@ -149,60 +96,99 @@ export const RecipeCard = ({ recipe, handleClick }) => {
     dietLabels,
     cautions,
   } = recipe;
-
-  // console.log(filterRecipeInfo(recipe.totalNutrients, ["CHOLE", "FAT"]));
-  // console.log("Recipe:", recipe);
+  console.log(recipe);
   return (
-    <Card p={0} w={350} borderRadius={"lg"} onClick={() => handleClick(recipe)}>
-      <CardHeader p={0} h={"250px"} overflow={"hidden"}>
-        <Image
-          w={350}
-          borderTopRadius={"lg"}
-          src={image}
-          alt={`image of ${title}`}
-        />
-      </CardHeader>
-      <CardBody>
-        <Heading pb={6} size={"lg"} textAlign={"center"}>
-          {fixLabel(title)}
-        </Heading>
-        <Center>
-          {showInfoTags(
-            filterRecipeInfo(mealType),
-            generateKeyPrefix("mt_", title),
-            "white",
-            "gray.700",
-            "uppercase"
-          )}
-        </Center>
-        {showTypes(dishType)}
-        {showInfoTags(
-          filterRecipeInfo(dishType),
-          generateKeyPrefix("dt_", title)
-        )}
-        {showLabels(healthLabels, true)}
-        {showInfoTags(
-          filterRecipeInfo(healthLabels, ["Vegetarian", "Vegan"]),
-          generateKeyPrefix("hl_", title)
-        )}
-        {showLabels(dietLabels)}
-        {showInfoTags(
-          filterRecipeInfo(dietLabels),
-          generateKeyPrefix("dl_", title)
-        )}
-        {cautions.length > 0 &&
-          cautions.map((type, index) => (
-            <Text bg={"red.100"} key={index}>
-              {type}
-            </Text>
-          ))}
-        {showInfoTags(
-          filterRecipeInfo(cautions),
-          generateKeyPrefix("cau_", title)
-        )}
-        <hr />
-      </CardBody>
-      <CardFooter></CardFooter>
-    </Card>
+    <WrapItem>
+      <Card
+        // display={"grid"}
+        // gridTemplateRows={"270px 230px"}
+        p={0}
+        w={350}
+        h={500}
+        borderRadius={"lg"}
+        overflow={"hidden"}
+        _hover={"cursor: pointer"}
+        onClick={() => handleClick(recipe)}
+      >
+        <CardHeader h={300} p={0} overflow={"clip"}>
+          <Image
+            boxSize={"350px"}
+            objectFit={"cover"}
+            borderTopRadius={"lg"}
+            filter={"auto"}
+            brightness={"65%"}
+            src={image}
+            alt={`image of ${title}`}
+          />
+          <Heading
+            w={"100%"}
+            px={1}
+            py={2}
+            fontSize={"1.5rem"}
+            textAlign={"center"}
+            pos={"absolute"}
+            bottom={"210px"}
+            textColor="#fefefe"
+          >
+            {fixLabel(title)}
+          </Heading>
+        </CardHeader>
+        <CardBody h={150} display={"flex"} flexDir={"column"} rowGap={2}>
+          <Stack direction={"column"} justify={"center"} h={"fit-content"}>
+            <Wrap justify={"center"}>
+              <Text
+                Key={generateKeyPrefix("dt_", title)}
+                fontWeight={600}
+                textColor={"gray.500"}
+                textTransform={"uppercase"}
+              >
+                {filterRecipeInfo(mealType)}
+              </Text>
+            </Wrap>
+            <Wrap justify={"center"}>
+              <Text justifyContent={"left"}>Dish:</Text>
+              <Text
+                Key={generateKeyPrefix("dt_", title)}
+                textTransform={"capitalize"}
+              >
+                {filterRecipeInfo(dishType)}
+              </Text>
+            </Wrap>
+          </Stack>
+          <Stack
+            direction={"column"}
+            justify={"center"}
+            align={"stretch"}
+            h={"full"}
+            spacing={2}
+          >
+            <Wrap justify={"center"}>
+              {showInfoTags(
+                filterRecipeInfo(healthLabels, ["Vegetarian", "Vegan"]),
+                generateKeyPrefix("hl_", title),
+                "uppercase",
+                "green"
+              )}
+            </Wrap>
+            <Wrap justify={"center"}>
+              {showInfoTags(
+                filterRecipeInfo(dietLabels),
+                generateKeyPrefix("dl_", title),
+                "uppercase",
+                "orange"
+              )}
+            </Wrap>
+            <Wrap justify={"center"}>
+              {showInfoTags(
+                filterRecipeInfo(cautions),
+                generateKeyPrefix("cau_", title),
+                "uppercase",
+                "red"
+              )}
+            </Wrap>
+          </Stack>
+        </CardBody>
+      </Card>
+    </WrapItem>
   );
 };
