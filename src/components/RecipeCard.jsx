@@ -1,19 +1,18 @@
+// TODO: move exp funtions to globalFunctions
 import {
+  Center,
   Wrap,
   WrapItem,
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   Image,
   Tag,
   TagLabel,
   TagLeftIcon,
-  Highlight,
   Text,
   Heading,
   Stack,
-  Icon,
 } from "@chakra-ui/react";
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbPlant2 } from "react-icons/tb";
@@ -22,19 +21,16 @@ import {
   fixLabel,
   betterKeyThenIndex,
   generateKeyPrefix,
+  checkInput,
 } from "../utils/globalFunctions";
+import { RecipeInfoTagGroup } from "./RecipeInfoTagGroup";
 
 //EXPERIMENTAL
 const filterRecipeInfo = function (info, specifiedInfo) {
-  let isInfo;
-  !info // this checks for falsy values (Importantely, resolves null as a velue beofre it would get to .length method)
-    ? (isInfo = false)
-    : (isInfo = Object.keys(info).length); //this is enough for both array and object values
-
-  if (isInfo) {
+  if (checkInput(info)) {
     if ("number" === typeof info || "string" === typeof info) {
       // console.log("I", info);
-      return info;
+      return [info];
     } else if (Array.isArray(info)) {
       if (specifiedInfo) {
         // console.log("A-sI:", specifiedInfo, "I:", info);
@@ -68,21 +64,25 @@ const showInfoTags = function (
   fontSize,
   textColor
 ) {
-  if (filteredInfo) {
-    return filteredInfo.map((inf, index) => (
-      <Tag
-        key={betterKeyThenIndex(prefix, inf, index)}
-        fontWeight={600}
-        textTransform={textTransform}
-        colorScheme={colorScheme}
-        icon={icon}
-        fontSize={fontSize}
-        textColor={textColor}
-      >
-        <TagLeftIcon>{icon}</TagLeftIcon>
-        <TagLabel>{inf}</TagLabel>
-      </Tag>
-    ));
+  if (checkInput(filteredInfo)) {
+    return (
+      <Wrap justify={"center"}>
+        {filteredInfo.map((inf, index) => (
+          <WrapItem key={betterKeyThenIndex(prefix, inf, index)}>
+            <Tag
+              fontWeight={600}
+              textTransform={textTransform}
+              colorScheme={colorScheme}
+              fontSize={fontSize}
+              textColor={textColor}
+            >
+              <TagLeftIcon as={icon} boxSize={5} />
+              <TagLabel>{inf}</TagLabel>
+            </Tag>
+          </WrapItem>
+        ))}
+      </Wrap>
+    );
   }
 };
 // END OF EXPERIMENTAL
@@ -96,18 +96,16 @@ export const RecipeCard = ({ recipe, handleClick }) => {
     dietLabels,
     cautions,
   } = recipe;
-  console.log(recipe);
   return (
     <WrapItem>
       <Card
-        // display={"grid"}
-        // gridTemplateRows={"270px 230px"}
         p={0}
         w={350}
         h={500}
         borderRadius={"lg"}
         overflow={"hidden"}
-        _hover={"cursor: pointer"}
+        bg={"white"}
+        _hover={{ cursor: "pointer" }}
         onClick={() => handleClick(recipe)}
       >
         <CardHeader h={300} p={0} overflow={"clip"}>
@@ -116,7 +114,7 @@ export const RecipeCard = ({ recipe, handleClick }) => {
             objectFit={"cover"}
             borderTopRadius={"lg"}
             filter={"auto"}
-            brightness={"65%"}
+            brightness={"60%"}
             src={image}
             alt={`image of ${title}`}
           />
@@ -135,26 +133,27 @@ export const RecipeCard = ({ recipe, handleClick }) => {
         </CardHeader>
         <CardBody h={150} display={"flex"} flexDir={"column"} rowGap={2}>
           <Stack direction={"column"} justify={"center"} h={"fit-content"}>
-            <Wrap justify={"center"}>
+            <Center justify={"center"}>
               <Text
-                Key={generateKeyPrefix("dt_", title)}
+                key={generateKeyPrefix("dt_", title)}
                 fontWeight={600}
                 textColor={"gray.500"}
                 textTransform={"uppercase"}
               >
                 {filterRecipeInfo(mealType)}
               </Text>
-            </Wrap>
-            <Wrap justify={"center"}>
+            </Center>
+            <Center justify={"center"}>
               <Text justifyContent={"left"}>Dish:</Text>
               <Text
-                Key={generateKeyPrefix("dt_", title)}
+                key={generateKeyPrefix("dt_", title)}
                 textTransform={"capitalize"}
               >
                 {filterRecipeInfo(dishType)}
               </Text>
-            </Wrap>
+            </Center>
           </Stack>
+          <hr p={0} />
           <Stack
             direction={"column"}
             justify={"center"}
@@ -162,30 +161,30 @@ export const RecipeCard = ({ recipe, handleClick }) => {
             h={"full"}
             spacing={2}
           >
-            <Wrap justify={"center"}>
-              {showInfoTags(
-                filterRecipeInfo(healthLabels, ["Vegetarian", "Vegan"]),
-                generateKeyPrefix("hl_", title),
-                "uppercase",
-                "green"
-              )}
-            </Wrap>
-            <Wrap justify={"center"}>
-              {showInfoTags(
-                filterRecipeInfo(dietLabels),
-                generateKeyPrefix("dl_", title),
-                "uppercase",
-                "orange"
-              )}
-            </Wrap>
-            <Wrap justify={"center"}>
-              {showInfoTags(
-                filterRecipeInfo(cautions),
-                generateKeyPrefix("cau_", title),
-                "uppercase",
-                "red"
-              )}
-            </Wrap>
+            <RecipeInfoTagGroup
+              key={generateKeyPrefix("hl_", title)}
+              filteredInfo={filterRecipeInfo(healthLabels, [
+                "Vegetarian",
+                "Vegan",
+              ])}
+              textTransform={"uppercase"}
+              tagColor={"green"}
+              icon={TbPlant2}
+            />
+            <RecipeInfoTagGroup
+              key={generateKeyPrefix("dl_", title)}
+              filteredInfo={filterRecipeInfo(dietLabels)}
+              textTransform={"uppercase"}
+              tagColor={"orange"}
+              icon={TbReportAnalytics}
+            />
+            <RecipeInfoTagGroup
+              key={generateKeyPrefix("cau_", title)}
+              filteredInfo={filterRecipeInfo(cautions)}
+              textTransform={"uppercase"}
+              tagColor={"red"}
+              icon={TbExclamationCircle}
+            />
           </Stack>
         </CardBody>
       </Card>
