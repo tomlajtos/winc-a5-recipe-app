@@ -1,3 +1,4 @@
+// TODO: Organize file, move functions from RecipeCard component
 // helper funcion to capitalize a string
 export const strCapital = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -46,4 +47,10 @@ export const generateKeyPrefix = function (customStr, specStr) {
   return `${customStr}${specStr
     .split(/\W/)
     .reduce((res, subStr) => res.concat(subStr.toLowerCase().charAt(0)), "")}_`;
+};
+// chek for valid data
+export const checkInput = function (input) {
+  return !input // this checks for falsy values (Importantely, resolves null as a velue beofre it would get to .length method)
+    ? false // input could be returned technically, just don't want a "null" pass throgh
+    : Object.keys(input).length; //this is enough for both array and object values
 };
