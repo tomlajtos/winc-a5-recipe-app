@@ -1,4 +1,3 @@
-// TODO: Organize file, move functions from RecipeCard component
 // helper funcion to capitalize a string
 export const strCapital = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
@@ -41,16 +40,54 @@ export const betterKeyThenIndex = (prefix, item, index) => {
     prefix + num1.toString() + `-${lChC + fChC}${xtraChC}-` + num2.toString()
   );
 };
-// returns a complex key prefix from provided custom string and data specific string
-// to be used with above key-gen function
+/**
+ * Create a prefix for keys generated for components and elements that do not have an ID which can be used as key.binbin
+ * @param {string} customStr, something that fits the characteristics of the element from data being iterated on
+ * @param {string} specStr, string that is specific to the coresponding element/component - part of its data
+ * @returns {string} a prefix that is uniqe to the item the function is called on */
 export const generateKeyPrefix = function (customStr, specStr) {
   return `${customStr}${specStr
     .split(/\W/)
     .reduce((res, subStr) => res.concat(subStr.toLowerCase().charAt(0)), "")}_`;
 };
-// chek for valid data
+
+// TODO: not convinced about this one, try to find a better way, maybe use this to check output as well? or smthng similar
+/**
+ * Validate input data - returns false if it is a fallsy value, or empty array or objexct
+ * Called inside filterRecipeInfo and components which should only rendered if valid data is passed to then as props
+ * works simillar to conditional rendering */
 export const checkInput = function (input) {
   return !input // this checks for falsy values (Importantely, resolves null as a velue beofre it would get to .length method)
     ? false // input could be returned technically, just don't want a "null" pass throgh
     : Object.keys(input).length; //this is enough for both array and object values
+};
+
+/**
+ * Filters data when/before it is passed to a component as prop(s) if fitering critria is provided
+ * can be used to filter when only certain elements of a dataset is supposed to be shown by a component
+ * @param {number, string, array, object} info
+ * @param  {array} specifiedInfo, array of strings to be shown if present in the data passed to the component */
+//TODO: maybe the output should be checked as well, before it is returned and passed to a component (not falsy value, or empty array/obj)
+export const filterRecipeInfo = function (info, specifiedInfo) {
+  if (checkInput(info)) {
+    if ("number" === typeof info || "string" === typeof info) {
+      return [info];
+    } else if (Array.isArray(info)) {
+      if (specifiedInfo) {
+        return specifiedInfo.filter((sI) => info.includes(sI));
+      } else {
+        return info;
+      }
+    } else {
+      //if info is an object
+      if (specifiedInfo) {
+        return specifiedInfo
+          .filter((sI) => Object.keys(info).includes(sI))
+          .map((sI) => info[sI]);
+      } else {
+        return info;
+      }
+    }
+  }
+  return;
 };
