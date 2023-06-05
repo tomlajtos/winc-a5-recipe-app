@@ -1,8 +1,10 @@
 //TODO: make separate components for data-groups
 import {
+  Icon,
   Flex,
   Center,
   Wrap,
+  WrapItem,
   Heading,
   Image,
   Text,
@@ -13,10 +15,10 @@ import {
   Tr,
   Th,
   Td,
+  Divider,
   TableContainer,
   List,
   ListItem,
-  Stack,
 } from "@chakra-ui/react";
 import {
   fixLabel,
@@ -65,31 +67,30 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
       <Heading size={"lg"} textAlign={"center"}>
         {fixLabel(label)}
       </Heading>
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Stack direction={"column"} justify={"center"} h={"fit-content"}>
-          <Wrap>
+      <Flex flexDir="row" w={350} rowGap={2} bg={"gray.100"} py={1} px={2}>
+        <Wrap>
+          <Icon />
+          <WrapItem>
             <Text
               fontWeight={600}
-              textColor={"gray.600"}
+              textColor={"gray.700"}
               textTransform={"uppercase"}
             >
               {filterRecipeInfo(mealType)}
             </Text>
-          </Wrap>
-          <Wrap>
-            <Heading size="2rem">Dish</Heading>
-            <Text textTransform={"uppercase"}>
+          </WrapItem>
+          <WrapItem>
+            <Divider orientation={"vertical"} colorScheme="purple" />
+          </WrapItem>
+          <WrapItem>
+            <Text
+              fontWeight={600}
+              textColor={"gray.700"}
+              textTransform={"uppercase"}
+            >
               {filterRecipeInfo(dishType)}
             </Text>
-          </Wrap>
-        </Stack>
-      </Flex>
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Meal Type</Heading>
-        <Wrap>
-          {mealType.map((label, index) => (
-            <Tag key={betterKeyThenIndex("mt_", label, index)}>{label}</Tag>
-          ))}
+          </WrapItem>
         </Wrap>
       </Flex>
       <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
