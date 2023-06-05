@@ -8,7 +8,7 @@ export const RecipeListPage = () => {
   const recipes = data.hits.map((hit) => hit.recipe);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   return (
-    <Center minH="100vh" flexDir="column" bg={"blackAlpha.100"} pt={8}>
+    <Center minH="100vh" flexDir="column" bg={"blackAlpha.100"}>
       {selectedRecipe ? (
         <RecipePage
           recipe={selectedRecipe}
@@ -16,7 +16,7 @@ export const RecipeListPage = () => {
         />
       ) : (
         <>
-          <Heading>Recipe App</Heading>
+          <Heading pt={8}>Recipe App</Heading>
           <RecipeSearch recipes={recipes} handleClick={setSelectedRecipe} />
         </>
       )}
