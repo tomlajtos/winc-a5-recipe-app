@@ -16,8 +16,14 @@ import {
   TableContainer,
   List,
   ListItem,
+  Stack,
 } from "@chakra-ui/react";
-import { fixLabel, betterKeyThenIndex } from "../utils/globalFunctions";
+import {
+  fixLabel,
+  betterKeyThenIndex,
+  generateKeyPrefix,
+  filterRecipeInfo,
+} from "../utils/globalFunctions";
 import { Button } from "../components/ui/Button";
 
 export const RecipePage = ({ recipe, handleButtonClick }) => {
@@ -47,16 +53,36 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
   };
 
   return (
-    <Center minH={"100vh"} flexDir="column" py={8} gap={8}>
-      <Heading size={"2xl"}>{fixLabel(label)}</Heading>
-      <Image src={image} alt="label" />
+    <Center minH={"100vh"} flexDir="column" gap={8} bg={"gray.50"}>
+      <Image
+        src={image}
+        boxSize={"400px"}
+        objectFit={"cover"}
+        filter={"auto"}
+        brightness={"100%"}
+        alt={`image of ${label}`}
+      />
+      <Heading size={"lg"} textAlign={"center"}>
+        {fixLabel(label)}
+      </Heading>
       <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Dish Type</Heading>
-        <Wrap>
-          {dishType.map((label, index) => (
-            <Tag key={betterKeyThenIndex("dt_", label, index)}>{label}</Tag>
-          ))}
-        </Wrap>
+        <Stack direction={"column"} justify={"center"} h={"fit-content"}>
+          <Wrap>
+            <Text
+              fontWeight={600}
+              textColor={"gray.600"}
+              textTransform={"uppercase"}
+            >
+              {filterRecipeInfo(mealType)}
+            </Text>
+          </Wrap>
+          <Wrap>
+            <Heading size="2rem">Dish</Heading>
+            <Text textTransform={"uppercase"}>
+              {filterRecipeInfo(dishType)}
+            </Text>
+          </Wrap>
+        </Stack>
       </Flex>
       <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
         <Heading size="md">Meal Type</Heading>
