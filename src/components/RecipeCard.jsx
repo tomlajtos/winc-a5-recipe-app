@@ -48,7 +48,7 @@ export const RecipeCard = ({ recipe, handleClick }) => {
             objectFit={"cover"}
             borderTopRadius={"lg"}
             filter={"auto"}
-            brightness={"60%"}
+            brightness={"75%"}
             src={image}
             alt={`image of ${title}`}
           />
@@ -77,7 +77,9 @@ export const RecipeCard = ({ recipe, handleClick }) => {
               </Text>
             </Center>
             <Center justify={"center"}>
-              <Text justifyContent={"left"}>Dish:</Text>
+              <Text justifyContent={"left"} pr={"1"}>
+                Dish:
+              </Text>
               <Text textTransform={"capitalize"}>
                 {filterRecipeInfo(dishType)}
               </Text>
