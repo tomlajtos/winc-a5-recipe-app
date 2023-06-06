@@ -1,32 +1,37 @@
 //TODO: make separate components for data-groups
 import {
-  Icon,
-  Flex,
   Center,
+  Divider,
+  Flex,
+  Heading,
+  Icon,
+  Image,
   Wrap,
   WrapItem,
-  Heading,
-  Image,
-  Text,
-  Tag,
+  TableContainer,
   Table,
-  Thead,
   Tbody,
+  Thead,
+  Tfoot,
   Tr,
   Th,
   Td,
-  Divider,
-  TableContainer,
-  List,
-  ListItem,
+  Tag,
+  Text,
 } from "@chakra-ui/react";
+import { TbArrowLeft } from "react-icons/tb";
+import { TbChevronLeft } from "react-icons/tb";
 import {
   fixLabel,
   betterKeyThenIndex,
   generateKeyPrefix,
   filterRecipeInfo,
 } from "../utils/globalFunctions";
+
 import { Button } from "../components/ui/Button";
+import { RecipeQuickInfo } from "../components/RecipeQuickInfo";
+import { RecipeIngredients } from "../components/RecipeIngredients";
+import { RecipeInfoTagGroup } from "../components/RecipeInfoTagGroup";
 
 export const RecipePage = ({ recipe, handleButtonClick }) => {
   const {
@@ -40,84 +45,38 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
     cautions,
     ingredientLines,
     yield: servingSize,
-    totalNutrients: {
-      ENERC_KCAL: energy,
-      PROCNT: protein,
-      FAT: fat,
-      CHOCDF: carbs,
-      CHOLE: cholesterol,
-      NA: sodium,
-    },
   } = recipe;
-  const totalNutrients = [energy, protein, fat, carbs, cholesterol, sodium];
+
   const handleClick = () => {
     handleButtonClick(null);
   };
 
   return (
-    <Center minH={"100vh"} flexDir="column" gap={8} bg={"gray.50"}>
+    <Center minH={"100vh"} flexDir="column" gap={4} bg={"gray.50"}>
       <Image
         src={image}
-        boxSize={"400px"}
+        boxSize={"100vw"}
         objectFit={"cover"}
         filter={"auto"}
         brightness={"100%"}
         alt={`image of ${label}`}
       />
-      <Heading size={"lg"} textAlign={"center"}>
+      <Heading
+        size={["lg", "2xl"]}
+        textAlign={"center"}
+        textTransform={"uppercase"}
+        fontWeight={500}
+        p={2}
+      >
         {fixLabel(label)}
       </Heading>
-      <Flex flexDir="row" w={350} rowGap={2} bg={"gray.100"} py={1} px={2}>
-        <Wrap>
-          <Icon />
-          <WrapItem>
-            <Text
-              fontWeight={600}
-              textColor={"gray.700"}
-              textTransform={"uppercase"}
-            >
-              {filterRecipeInfo(mealType)}
-            </Text>
-          </WrapItem>
-          <WrapItem>
-            <Divider orientation={"vertical"} colorScheme="purple" />
-          </WrapItem>
-          <WrapItem>
-            <Text
-              fontWeight={600}
-              textColor={"gray.700"}
-              textTransform={"uppercase"}
-            >
-              {filterRecipeInfo(dishType)}
-            </Text>
-          </WrapItem>
-        </Wrap>
-      </Flex>
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Ingredients</Heading>
-        <List listStyleType={"none"} mx={0}>
-          {ingredientLines.map((line, index) => (
-            <ListItem
-              key={betterKeyThenIndex("ingr_", line, index)}
-              textAlign={"left"}
-            >
-              {line}
-            </ListItem>
-          ))}
-        </List>
-      </Flex>
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Total Cooking Time:</Heading>
-        {!totalTime ? (
-          <Text>- (no need to cook, no prep time provided)</Text>
-        ) : (
-          <Text>{totalTime} Minutes</Text>
-        )}
-      </Flex>
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Servings:</Heading>
-        <Text>{servingSize}</Text>
-      </Flex>
+      <RecipeQuickInfo
+        mealType={mealType}
+        dishType={dishType}
+        totalTime={totalTime}
+        servingSize={servingSize}
+      />
+      <RecipeIngredients ingredients={ingredientLines} />
       <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
         <Heading size="md">Health Labels</Heading>
         <Wrap>
@@ -129,9 +88,11 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
       <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
         <Heading size="md">Diet Labels</Heading>
         <Wrap>
-          {dietLabels.map((label, index) => (
-            <Tag key={betterKeyThenIndex("dl_", label, index)}>{label}</Tag>
-          ))}
+          <WrapItem>
+            {dietLabels.map((label, index) => (
+              <Tag key={betterKeyThenIndex("dl_", label, index)}>{label}</Tag>
+            ))}
+          </WrapItem>
         </Wrap>
       </Flex>
       <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
@@ -144,17 +105,29 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
       </Flex>
       <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
         <Heading size="md">Total Nutrients</Heading>
-        <TableContainer>
-          <Table variant="striped">
+        <TableContainer
+          border={"1px"}
+          borderColor={"gray.200"}
+          borderRadius={"lg"}
+          p={2}
+        >
+          <Table variant="simple">
             <Thead>
               <Tr>
                 <Th></Th>
-                <Th>quantity</Th>
+                <Th textColor={"gray.800"}>quantity</Th>
                 <Th isNumeric>unit</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {totalNutrients.map(({ label, quantity, unit }, index) => (
+              {filterRecipeInfo(recipe.totalNutrients, [
+                "ENERC_KCAL",
+                "PROCNT",
+                "FAT",
+                "CHOCDF",
+                "CHOLE",
+                "NA",
+              ]).map(({ label, quantity, unit }, index) => (
                 <Tr key={betterKeyThenIndex("nutr_", label, index)}>
                   <Td>{label} </Td>
                   <Td isNumeric>{Math.round(quantity)}</Td>
@@ -162,10 +135,28 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
                 </Tr>
               ))}
             </Tbody>
+            <Tfoot>
+              <Tr>
+                <Th>
+                  <Button variant="link">show all</Button>
+                </Th>
+                <Th></Th>
+                <Th></Th>
+              </Tr>
+            </Tfoot>
           </Table>
         </TableContainer>
       </Flex>
-      <Button handleClick={handleClick} text={"back to all recipes"} />
+      <Button
+        leftIcon={<Icon as={TbChevronLeft} />}
+        handleClick={handleClick}
+        position={["absolute", "fixed"]}
+        top={4}
+        left={4}
+        colorScheme={"blackAlpha"}
+        size={["xs", "lg"]}
+        text={"go back"}
+      />
     </Center>
   );
 };
