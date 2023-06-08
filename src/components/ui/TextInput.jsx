@@ -3,8 +3,10 @@ import { Input } from "@chakra-ui/react";
 export const TextInput = ({ handleChange }) => {
   return (
     <Input
-      maxW={["100%", "80%", "60%"]}
+      variant={"filled"}
+      maxW={[350, 650]}
       placeholder="Text Input"
+      colorScheme={"whatsapp"}
       onChange={handleChange}
     ></Input>
   );
