@@ -3,7 +3,12 @@ import { RecipeCard } from "./RecipeCard";
 
 export const RecipeList = ({ recipes, handleClick }) => {
   return (
-    <Wrap justify={"center"} spacing={4} p={4}>
+    <Wrap
+      maxW={["100%", "container.md", "container.lg", "container.xl"]}
+      justify={"center"}
+      spacing={4}
+      p={4}
+    >
       {recipes.map((recipe) => {
         return (
           <RecipeCard

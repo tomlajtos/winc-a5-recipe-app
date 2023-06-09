@@ -4,7 +4,7 @@ export const TextInput = ({ handleChange }) => {
   return (
     <Input
       variant={"filled"}
-      maxW={[350, 650]}
+      maxW={["350px", "80%", "700px"]}
       placeholder="Text Input"
       colorScheme={"whatsapp"}
       onChange={handleChange}
