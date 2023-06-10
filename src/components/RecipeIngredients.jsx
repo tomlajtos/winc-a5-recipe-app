@@ -1,5 +1,6 @@
 import { Flex, Heading, List, ListItem } from "@chakra-ui/react";
 import { betterKeyThenIndex } from "../utils/globalFunctions";
+import { RecipeSubHeading } from "./RecipeSubHeading";
 
 export const RecipeIngredients = ({ ingredients }) => {
   const formatText = function (text) {
@@ -10,8 +11,8 @@ export const RecipeIngredients = ({ ingredients }) => {
   };
 
   return (
-    <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-      <Heading size="md">Ingredients</Heading>
+    <Flex flexDir="column" maxW={360} alignItems="start" rowGap={2}>
+      <RecipeSubHeading text={"ingredients"} />
       <List listStyleType={"none"} mx={0}>
         {ingredients.map((line, index) => (
           <ListItem
