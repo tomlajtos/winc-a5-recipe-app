@@ -4,6 +4,7 @@ import { betterKeyThenIndex, checkInput } from "../utils/globalFunctions";
 export const RecipeInfoTagGroup = ({
   filteredInfo,
   prefix,
+  justifyTags = "center",
   textTransform = "none",
   tagColor,
   icon,
@@ -11,7 +12,7 @@ export const RecipeInfoTagGroup = ({
   textColor,
 }) => {
   return checkInput(filteredInfo) ? (
-    <Wrap justify={"center"}>
+    <Wrap justify={justifyTags}>
       {filteredInfo.map((inf, index) => (
         <WrapItem key={betterKeyThenIndex(prefix, inf, index)}>
           <Tag
@@ -21,7 +22,7 @@ export const RecipeInfoTagGroup = ({
             fontSize={fontSize}
             textColor={textColor}
           >
-            <TagLeftIcon as={icon} boxSize={5} />
+            {icon && <TagLeftIcon as={icon} boxSize={5} />}
             <TagLabel>{inf}</TagLabel>
           </Tag>
         </WrapItem>
