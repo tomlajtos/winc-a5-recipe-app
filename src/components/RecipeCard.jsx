@@ -1,14 +1,16 @@
 // TODO: move exp funtions to globalFunctions
 import {
-  Center,
-  WrapItem,
   Card,
   CardHeader,
   CardBody,
-  Image,
-  Text,
+  Center,
+  Divider,
+  Flex,
   Heading,
-  Stack,
+  Image,
+  Spacer,
+  Text,
+  WrapItem,
 } from "@chakra-ui/react";
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbPlant2 } from "react-icons/tb";
@@ -34,40 +36,53 @@ export const RecipeCard = ({ recipe, handleClick }) => {
     <WrapItem>
       <Card
         p={0}
-        w={350}
-        h={500}
-        borderRadius={"lg"}
-        overflow={"hidden"}
+        maxW={["100%", 360]}
+        minH={500}
+        borderRadius={[null, "lg"]}
+        overflowX={"hidden"}
         bg={"white"}
         _hover={{ cursor: "pointer" }}
         onClick={() => handleClick(recipe)}
       >
-        <CardHeader h={300} p={0} overflow={"clip"}>
+        <CardHeader h={325} p={0} overflow={["clip"]}>
           <Image
-            boxSize={"350px"}
+            boxSize={"360px"}
+            pb={4}
             objectFit={"cover"}
-            borderTopRadius={"lg"}
+            borderRadius={[null, "lg"]}
             filter={"auto"}
-            brightness={"75%"}
+            brightness={"90%"}
             src={image}
             alt={`image of ${title}`}
           />
           <Heading
             w={"100%"}
-            px={1}
+            h={200}
+            display={"flex"}
+            alignItems={"end"}
+            justifyContent={"center"}
+            textAlign={"center"}
+            px={2}
             py={2}
             fontSize={"1.5rem"}
-            textAlign={"center"}
             pos={"absolute"}
-            bottom={"210px"}
+            top={"125px"}
             textColor="#fefefe"
+            bgGradient={"linear(to-b,transparent, #00000066)"}
           >
             {fixLabel(title)}
           </Heading>
         </CardHeader>
-        <CardBody h={150} display={"flex"} flexDir={"column"} rowGap={2}>
-          <Stack direction={"column"} justify={"center"} h={"fit-content"}>
-            <Center justify={"center"}>
+        <CardBody
+          pb={"10px"}
+          pt={"10px"}
+          minH={195}
+          display={"flex"}
+          flexDir={"column"}
+          rowGap={2}
+        >
+          <Flex direction={"column"} h={"fit-content"} rowGap={1}>
+            <Center>
               <Text
                 fontWeight={600}
                 textColor={"gray.500"}
@@ -76,23 +91,20 @@ export const RecipeCard = ({ recipe, handleClick }) => {
                 {filterRecipeInfo(mealType)}
               </Text>
             </Center>
-            <Center justify={"center"}>
-              <Text justifyContent={"left"} pr={"1"}>
-                Dish:
-              </Text>
-              <Text textTransform={"capitalize"}>
+            <Center>
+              <Text pr={1}>Dish:</Text>
+              <Text
+                fontWeight={600}
+                textColor={"gray.600"}
+                textTransform={"capitalize"}
+              >
                 {filterRecipeInfo(dishType)}
               </Text>
             </Center>
-          </Stack>
-          <hr p={0} />
-          <Stack
-            direction={"column"}
-            justify={"center"}
-            align={"stretch"}
-            h={"full"}
-            spacing={2}
-          >
+          </Flex>
+          <Divider borderColor={"gray.400"} />
+          <Flex direction={"column"} h={"100%"} minH={"104px"} rowGap={2}>
+            <Spacer />
             <RecipeInfoTagGroup
               key={generateKeyPrefix("hl_", title)}
               filteredInfo={filterRecipeInfo(healthLabels, [
@@ -117,7 +129,8 @@ export const RecipeCard = ({ recipe, handleClick }) => {
               tagColor={"red"}
               icon={TbExclamationCircle}
             />
-          </Stack>
+            <Spacer />
+          </Flex>
         </CardBody>
       </Card>
     </WrapItem>
