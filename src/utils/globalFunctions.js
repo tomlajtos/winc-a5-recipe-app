@@ -44,22 +44,25 @@ export const betterKeyThenIndex = (prefix, item, index) => {
  * Create a prefix for keys generated for components and elements that do not have an ID which can be used as key.binbin
  * @param {string} customStr, something that fits the characteristics of the element from data being iterated on
  * @param {string} specStr, string that is specific to the coresponding element/component - part of its data
- * @returns {string} a prefix that is uniqe to the item the function is called on */
+ * @returns {string} a prefix that is uniqe to the item the function is called on
+ * EXAMPLE: "cusotmStr_abcd_" */
 export const generateKeyPrefix = function (customStr, specStr) {
-  return `${customStr}${specStr
+  return `${customStr}_${specStr
     .split(/\W/)
     .reduce((res, subStr) => res.concat(subStr.toLowerCase().charAt(0)), "")}_`;
 };
 
 // TODO: not convinced about this one, try to find a better way, maybe use this to check output as well? or smthng similar
+// !!!make it work with numbers!!!
 /**
  * Validate input data - returns false if it is a fallsy value, or empty array or objexct
  * Called inside filterRecipeInfo and components which should only rendered if valid data is passed to then as props
  * works simillar to conditional rendering */
-export const checkInput = function (input) {
+export const checkData = function (input) {
   return !input // this checks for falsy values (Importantely, resolves null as a velue beofre it would get to .length method)
     ? false // input could be returned technically, just don't want a "null" pass throgh
-    : Object.keys(input).length; //this is enough for both array and object values
+    : // : input === 0 ? false
+      Object.keys(input).length > 0; //this is enough for both array and object values
 };
 
 /**
@@ -67,11 +70,12 @@ export const checkInput = function (input) {
  * can be used to filter when only certain elements of a dataset is supposed to be shown by a component
  * @param {number, string, array, object} info
  * @param  {array} specifiedInfo, array of strings to be shown if present in the data passed to the component */
-//TODO: maybe the output should be checked as well, before it is returned and passed to a component (not falsy value, or empty array/obj)
 export const filterRecipeInfo = function (info, specifiedInfo) {
-  if (checkInput(info)) {
+  if (checkData(info)) {
     if ("number" === typeof info || "string" === typeof info) {
-      return [info];
+      // if (info !== 0) {
+      return info;
+      // }
     } else if (Array.isArray(info)) {
       if (specifiedInfo) {
         return specifiedInfo.filter((sI) => info.includes(sI));
@@ -88,6 +92,17 @@ export const filterRecipeInfo = function (info, specifiedInfo) {
         return info;
       }
     }
+  }
+  // return undefined if checkData returns a falsy value
+  return;
+};
+
+export const formatTimeInfo = function (timeInMinutes) {
+  if (timeInMinutes) {
+    const hrs = Math.floor(timeInMinutes / 60);
+    const mins = timeInMinutes % 60;
+    // TODO: write a nice comment to this one
+    return `${hrs ? `${hrs} h ` : ""}${mins ? `${mins} min` : ""}`;
   }
   return;
 };
