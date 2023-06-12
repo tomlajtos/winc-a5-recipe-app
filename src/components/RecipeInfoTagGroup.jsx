@@ -1,5 +1,12 @@
-import { Wrap, WrapItem, Tag, TagLabel, TagLeftIcon } from "@chakra-ui/react";
-import { betterKeyThenIndex, checkInput } from "../utils/globalFunctions";
+import {
+  Wrap,
+  WrapItem,
+  Tag,
+  TagLabel,
+  TagLeftIcon,
+  Text,
+} from "@chakra-ui/react";
+import { betterKeyThenIndex, checkData } from "../utils/globalFunctions";
 
 export const RecipeInfoTagGroup = ({
   filteredInfo,
@@ -11,7 +18,7 @@ export const RecipeInfoTagGroup = ({
   fontSize,
   textColor,
 }) => {
-  return checkInput(filteredInfo) ? (
+  return checkData(filteredInfo) ? (
     <Wrap justify={justifyTags}>
       {filteredInfo.map((inf, index) => (
         <WrapItem key={betterKeyThenIndex(prefix, inf, index)}>
@@ -28,5 +35,5 @@ export const RecipeInfoTagGroup = ({
         </WrapItem>
       ))}
     </Wrap>
-  ) : undefined;
+  ) : null;
 };
