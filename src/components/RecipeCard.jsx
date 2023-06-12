@@ -38,9 +38,9 @@ export const RecipeCard = ({ recipe, handleClick }) => {
         p={0}
         maxW={["100%", 360]}
         minH={500}
-        borderRadius={[null, "lg"]}
+        borderRadius={[null]}
         overflowX={"hidden"}
-        bg={"white"}
+        bg={"#fefefe"}
         _hover={{ cursor: "pointer" }}
         onClick={() => handleClick(recipe)}
       >
@@ -49,7 +49,6 @@ export const RecipeCard = ({ recipe, handleClick }) => {
             boxSize={"360px"}
             pb={4}
             objectFit={"cover"}
-            borderRadius={[null, "lg"]}
             filter={"auto"}
             brightness={"90%"}
             src={image}
