@@ -110,11 +110,15 @@ export const filterRecipeInfo = function (info, specifiedInfo) {
   return;
 };
 
+/**
+ * Formats cooking/prep time data from minutes to hours and minutes if applicable */
 export const formatTimeInfo = function (timeInMinutes) {
   if (timeInMinutes) {
     const hrs = Math.floor(timeInMinutes / 60);
     const mins = timeInMinutes % 60;
-    // TODO: write a nice comment to this one
+    // return a string with cooking time in the format of "x h y min" only shows hrs and min vals if applicable
+    // was curious if it can be done this way, see no reason why not to keep it like this
+    // temp. literals return "hrs" and "mins" value or "" inside a temp literal str.
     return `${hrs ? `${hrs} h ` : ""}${mins ? `${mins} min` : ""}`;
   }
   return;
