@@ -63,17 +63,19 @@ export const generateKeyPrefix = function (customStr, specStr) {
     .reduce((res, subStr) => res.concat(subStr.toLowerCase().charAt(0)), "")}_`;
 };
 
-// TODO: not convinced about this one, try to find a better way, maybe use this to check output as well? or smthng similar
-// !!!make it work with numbers!!!
 /**
- * Validate input data - returns false if it is a fallsy value, or empty array or objexct
+ * Validate input data - returns false if it is a fallsy value, or empty array or an empty object
  * Called inside filterRecipeInfo and components which should only rendered if valid data is passed to then as props
  * works simillar to conditional rendering */
-export const checkData = function (input) {
-  return !input // this checks for falsy values (Importantely, resolves null as a velue beofre it would get to .length method)
-    ? false // input could be returned technically, just don't want a "null" pass throgh
-    : // : input === 0 ? false
-      Object.keys(input).length > 0; //this is enough for both array and object values
+export const checkData = function (data) {
+  // this checks for falsy values (Importantely, resolves null as a velue beofre it would get to .length method)
+  if (!data) {
+    return;
+  }
+  // catches empty arrays and objets, makes sure that pos. numbers return "true"
+  return "number" === typeof data && data > 0
+    ? true
+    : Object.keys(data).length > 0; //this is enough for both array and object values
 };
 
 /**
