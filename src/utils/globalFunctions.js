@@ -2,21 +2,32 @@
 export const strCapital = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 /**
- * Remove the word "recipes" from recipe.label
+ * Remove the word "recipes" from recipe.label and capitalize it properly
  * ---
  * Each recipe obj. in the db-file represents a single recipe,
  * so the word "recipes" in some of the labels does not make any sense.
  */
 export const fixLabel = (label) => {
+  const lowercaseWords = [
+    "a",
+    "an",
+    "and",
+    "or",
+    "the",
+    "but",
+    "for",
+    "at",
+    "by",
+    "to",
+    "with", // not capitalized according to "Chicago Style" method
+  ];
   const words = label.toLowerCase().split(" ");
-  if (words.includes("recipes")) {
-    return words
-      .filter((word) => word !== "recipes")
-      .map((word) => strCapital(word))
-      .join(" ");
-  } else {
-    return label;
-  }
+  return words
+    .filter((word) => word !== "recipes")
+    .map((word, index) =>
+      index === 0 || !lowercaseWords.includes(word) ? strCapital(word) : word
+    )
+    .join(" ");
 };
 
 /**
