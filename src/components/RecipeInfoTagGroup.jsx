@@ -1,11 +1,4 @@
-import {
-  Wrap,
-  WrapItem,
-  Tag,
-  TagLabel,
-  TagLeftIcon,
-  Text,
-} from "@chakra-ui/react";
+import { Wrap, WrapItem, Tag, TagLabel, TagLeftIcon } from "@chakra-ui/react";
 import { betterKeyThenIndex, checkData } from "../utils/globalFunctions";
 
 export const RecipeInfoTagGroup = ({
