@@ -7,7 +7,7 @@ export const RecipeList = ({ recipes, handleClick }) => {
       maxW={["100%", "container.md", "container.lg", "container.xl"]}
       justify={"center"}
       spacing={4}
-      p={4}
+      p={0}
     >
       {recipes.map((recipe) => {
         return (
