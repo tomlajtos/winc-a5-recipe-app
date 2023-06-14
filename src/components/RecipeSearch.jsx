@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { RecipeList } from "./RecipeList";
-import { TextInput } from "./ui/TextInput";
+import { SearchInput } from "./ui/SearchInput";
 import { useState } from "react";
 
 export const RecipeSearch = ({ recipes, handleClick }) => {
@@ -31,7 +31,7 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
 
   return (
     <Flex direction={"column"} align={"center"} gap={8} minW={"100%"} py={8}>
-      <TextInput handleChange={handleChange} />
+      <SearchInput handleChange={handleChange} />
       <RecipeList
         recipes={findMatchingRecipes(recipes, searchTerms)}
         handleClick={handleClick}
