@@ -12,7 +12,7 @@ export const NoInfoNote = ({ category }) => {
         fontStyle={"italic"}
         textColor={"gray.500"}
       >
-        (There's no information on '{category}')
+        {`(There's no information on '${category}')`}
       </Text>
     </Box>
   );
