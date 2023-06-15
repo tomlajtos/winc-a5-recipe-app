@@ -1,37 +1,26 @@
-//TODO: make separate components for data-groups
+//TODO: fix responsive layout title/fontSize or heading-size
 import {
-  Center,
   Divider,
   Flex,
+  Grid,
+  GridItem,
   Heading,
-  Icon,
   Image,
-  Wrap,
-  WrapItem,
-  TableContainer,
-  Table,
-  Tbody,
-  Thead,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  Tag,
-  Text,
 } from "@chakra-ui/react";
-import { TbArrowLeft } from "react-icons/tb";
 import { TbChevronLeft } from "react-icons/tb";
 import {
   fixLabel,
-  betterKeyThenIndex,
   generateKeyPrefix,
   filterRecipeInfo,
 } from "../utils/globalFunctions";
 
-import { Button } from "../components/ui/Button";
+import { IconButton } from "../components/ui/IconButton";
+import { NoInfoNote } from "../components/NoInfoNote";
+import { RecipeSubHeading } from "../components/RecipeSubHeading";
 import { RecipeQuickInfo } from "../components/RecipeQuickInfo";
 import { RecipeIngredients } from "../components/RecipeIngredients";
 import { RecipeInfoTagGroup } from "../components/RecipeInfoTagGroup";
+import { RecipeNutrientsTable } from "../components/RecipeNutrientsTable";
 
 export const RecipePage = ({ recipe, handleButtonClick }) => {
   const {
@@ -45,6 +34,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
     cautions,
     ingredientLines,
     yield: servingSize,
+    totalNutrients: { ...totalNutrients },
   } = recipe;
 
   const handleClick = () => {
@@ -52,111 +42,147 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
   };
 
   return (
-    <Center minH={"100vh"} flexDir="column" gap={4} bg={"gray.50"}>
+    <Flex
+      minH={"100vh"}
+      w={["100%", null, null, "992px", "container.lg", "container.xl"]}
+      flexDir="column"
+      rowGap={[1, 2, 4]}
+      bg={"#fefefe"}
+      pb={8}
+    >
       <Image
         src={image}
-        boxSize={"100vw"}
+        alt={`image of ${label}`}
+        minW={"100%"}
+        maxH={[350, 400, 450, 500, 550]}
         objectFit={"cover"}
         filter={"auto"}
         brightness={"100%"}
-        alt={`image of ${label}`}
+        position={"relative"}
+        top={0}
+        left={0}
       />
       <Heading
-        size={["lg", "2xl"]}
+        fontSize={["1.75rem", "2rem", "3rem"]}
         textAlign={"center"}
         textTransform={"uppercase"}
         fontWeight={500}
-        p={2}
+        p={[2, 2, 4, null, 6]}
       >
         {fixLabel(label)}
       </Heading>
-      <RecipeQuickInfo
-        mealType={mealType}
-        dishType={dishType}
-        totalTime={totalTime}
-        servingSize={servingSize}
       />
-      <RecipeIngredients ingredients={ingredientLines} />
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Health Labels</Heading>
-        <Wrap>
-          {healthLabels.map((label, index) => (
-            <Tag key={betterKeyThenIndex("hl_", label, index)}>{label}</Tag>
-          ))}
-        </Wrap>
-      </Flex>
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Diet Labels</Heading>
-        <Wrap>
-          <WrapItem>
-            {dietLabels.map((label, index) => (
-              <Tag key={betterKeyThenIndex("dl_", label, index)}>{label}</Tag>
-            ))}
-          </WrapItem>
-        </Wrap>
-      </Flex>
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Cautions</Heading>
-        <Wrap>
-          {cautions.map((label, index) => (
-            <Tag key={betterKeyThenIndex("caut_", label, index)}>{label}</Tag>
-          ))}
-        </Wrap>
-      </Flex>
-      <Flex flexDir="column" w={350} alignItems="start" rowGap={2}>
-        <Heading size="md">Total Nutrients</Heading>
-        <TableContainer
-          border={"1px"}
-          borderColor={"gray.200"}
-          borderRadius={"lg"}
-          p={2}
+      {/* recipe details */}
+      <Grid
+        templateColumns={["1fr", "1fr", "repeat(2,max-content)"]}
+        templateRows={["repeat(3,fit-content)", null, "repeat(2,auto)"]}
+        mx={"auto"}
+        p={[2, null, 4]}
+        rowGap={[6, null, 10]}
+        columnGap={[0, null, 8, 12]}
+      >
+        {/* container: quick info about dis/meal, cooking/prep time, serving size */}
+        <GridItem
+          colStart={1}
+          colEnd={2}
+          rowStart={[1]}
+          rowEnd={[2, null, 3]}
+          maxW={360}
         >
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th></Th>
-                <Th textColor={"gray.800"}>quantity</Th>
-                <Th isNumeric>unit</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {filterRecipeInfo(recipe.totalNutrients, [
-                "ENERC_KCAL",
-                "PROCNT",
-                "FAT",
-                "CHOCDF",
-                "CHOLE",
-                "NA",
-              ]).map(({ label, quantity, unit }, index) => (
-                <Tr key={betterKeyThenIndex("nutr_", label, index)}>
-                  <Td>{label} </Td>
-                  <Td isNumeric>{Math.round(quantity)}</Td>
-                  <Td>{unit}</Td>
-                </Tr>
-              ))}
-            </Tbody>
-            <Tfoot>
-              <Tr>
-                <Th>
-                  <Button variant="link">show all</Button>
-                </Th>
-                <Th></Th>
-                <Th></Th>
-              </Tr>
-            </Tfoot>
-          </Table>
-        </TableContainer>
-      </Flex>
-      <Button
-        leftIcon={<Icon as={TbChevronLeft} />}
+          <Flex flexDir="column" alignItems="start" rowGap={[6, 8]}>
+            <RecipeQuickInfo
+              mealType={mealType}
+              dishType={dishType}
+              totalTime={totalTime}
+              servingSize={servingSize}
+            />
+            <Divider border={"1px solid"} borderColor={"gray.400"} maxW={360} />
+            <RecipeIngredients ingredients={ingredientLines} />
+          </Flex>
+        </GridItem>
+
+        {/* container: tag groups */}
+        <GridItem
+          colStart={[1, null, 2]}
+          colEnd={[2, null, 3]}
+          rowStart={[2, null, 1]}
+          rowEnd={[3, null, 2]}
+          maxW={360}
+        >
+          <Flex flexDir="column" alignItems="start" maxW={360} rowGap={4}>
+            {/* tag group for health labels */}
+            <Flex flexDir="column" alignItems="start" rowGap={2}>
+              <RecipeSubHeading text={"health labels"} />
+              {filterRecipeInfo(healthLabels) ? (
+                <RecipeInfoTagGroup
+                  filteredInfo={filterRecipeInfo(healthLabels)}
+                  prefix={generateKeyPrefix("hl_", label)}
+                  justifyTags={"start"}
+                  tagColor={"green"}
+                />
+              ) : (
+                <NoInfoNote category={"health labels"} />
+              )}
+            </Flex>
+            {/* tag group for diet labels */}
+            <Flex flexDir="column" alignItems="start" rowGap={2}>
+              <RecipeSubHeading text={"diet labels"} />
+              {filterRecipeInfo(dietLabels) ? (
+                <RecipeInfoTagGroup
+                  filteredInfo={filterRecipeInfo(dietLabels)}
+                  prefix={generateKeyPrefix("dl_", label)}
+                  justifyTags={"start"}
+                  tagColor={"orange"}
+                />
+              ) : (
+                <NoInfoNote category={"diet labels"} />
+              )}
+            </Flex>
+            {/* tag group for cautions */}
+            <Flex flexDir="column" alignItems="start" rowGap={2}>
+              <RecipeSubHeading text={"cautions"} />
+              {filterRecipeInfo(cautions) ? (
+                <RecipeInfoTagGroup
+                  filteredInfo={filterRecipeInfo(cautions)}
+                  prefix={generateKeyPrefix("cau_", label)}
+                  justifyTags={"start"}
+                  tagColor={"red"}
+                />
+              ) : (
+                <NoInfoNote category={"cautions"} />
+              )}
+            </Flex>
+          </Flex>
+        </GridItem>
+
+        {/* container: total-nutrients table */}
+        <GridItem
+          colStart={[1, null, 2]}
+          colEnd={[2, null, 3]}
+          rowStart={[3, null, 2]}
+          rowEnd={[4, null, 3]}
+          overflowX={"hidden"}
+        >
+          <Flex flexDir="column" alignItems="start" rowGap={2}>
+            <RecipeSubHeading text={"total nutrients"} />
+            <RecipeNutrientsTable nutrients={totalNutrients} />
+          </Flex>
+        </GridItem>
+      </Grid>
+      {/* button for going back to all recipes */}
+      <IconButton
         handleClick={handleClick}
-        position={["absolute", "fixed"]}
-        top={4}
-        left={4}
+        buttonIcon={TbChevronLeft}
+        ariaLabel={"back to recipes"}
+        position={["fixed"]}
+        top={[1, 2, null, null, 3]}
+        right={[1, 2, null, null, 3]}
         colorScheme={"blackAlpha"}
-        size={["xs", "lg"]}
-        text={"go back"}
+        size={["sm", "md", "lg"]}
+        fontSize={["16px", "24px", "32px"]}
+        px={[0, 2]}
+        py={[2, 0]}
       />
-    </Center>
+    </Flex>
   );
 };
