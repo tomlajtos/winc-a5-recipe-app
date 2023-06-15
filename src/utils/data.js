@@ -629,10 +629,10 @@ export const data = JSON.parse(`{
           "Lupine-Free",
           "Mollusk-Free",
           "Alcohol-Free",
-          "Sulfite-Free ?"
+          "Sulfite-Free"
         ],
         "cautions": [
-          "Sulfites ?"
+          "Sulfites"
         ],
         "ingredientLines": [
           "7 tablespoons room temperature unsalted butter, divided",
@@ -997,12 +997,12 @@ export const data = JSON.parse(`{
           "Lupine-Free",
           "Mollusk-Free",
           "No oil added",
-          "Sulfite-Free ?",
+          "Sulfite-Free",
           "Kosher",
           "Alcohol-Cocktail"
         ],
         "cautions": [
-          "Sulfites ?"
+          "Sulfites"
         ],
         "ingredientLines": [
           "2.0 oz. Tres Agaves Blanco Tequila",
@@ -1913,9 +1913,9 @@ export const data = JSON.parse(`{
           "Pescatarian",
           "Dairy-Free",
           "Peanut-Free",
-          "Tree-Nut-Free ?",
+          "Tree-Nut-Free",
           "Soy-Free",
-          "Shellfish-Free ?",
+          "Shellfish-Free",
           "Pork-Free",
           "Red-Meat-Free",
           "Celery-Free",
@@ -1926,9 +1926,9 @@ export const data = JSON.parse(`{
           "Sulfite-Free"
         ],
         "cautions": [
-          "Tree-Nuts ?",
-          "Shellfish ?",
-          "Sulfites ?",
+          "Tree-Nuts",
+          "Shellfish",
+          "Sulfites",
           "FODMAP"
         ],
         "ingredientLines": [
@@ -2351,11 +2351,11 @@ export const data = JSON.parse(`{
           "Mollusk-Free",
           "Alcohol-Free",
           "Sulfite-Free",
-          "FODMAP-Free ?",
+          "FODMAP-Free",
           "Kosher"
         ],
         "cautions": [
-          "FODMAP ?"
+          "FODMAP"
         ],
         "ingredientLines": [
           "2 cups blanched almond flour (not almond meal)",
@@ -2632,10 +2632,10 @@ export const data = JSON.parse(`{
           "Lupine-Free",
           "Mollusk-Free",
           "Alcohol-Free",
-          "Sulfite-Free ?"
+          "Sulfite-Free"
         ],
         "cautions": [
-          "Sulfites ?"
+          "Sulfites"
         ],
         "ingredientLines": [
           "1 tablespoon oil",
@@ -3866,11 +3866,11 @@ export const data = JSON.parse(`{
           "Mollusk-Free",
           "Alcohol-Free",
           "No oil added",
-          "Sulfite-Free ?",
+          "Sulfite-Free",
           "Kosher"
         ],
         "cautions": [
-          "Sulfites ?"
+          "Sulfites"
         ],
         "ingredientLines": [
           "1 cup whole grain rice",
@@ -4526,10 +4526,10 @@ export const data = JSON.parse(`{
           "Lupine-Free",
           "Mollusk-Free",
           "Alcohol-Free",
-          "Sulfite-Free ?"
+          "Sulfite-Free"
         ],
         "cautions": [
-          "Sulfites ?"
+          "Sulfites"
         ],
         "ingredientLines": [
           "500g flour",
@@ -5221,11 +5221,11 @@ export const data = JSON.parse(`{
           "Lupine-Free",
           "Mollusk-Free",
           "Alcohol-Free",
-          "Sulfite-Free ?",
+          "Sulfite-Free",
           "Kosher"
         ],
         "cautions": [
-          "Sulfites ?"
+          "Sulfites"
         ],
         "ingredientLines": [
           "1 teaspoon olive oil",
@@ -6029,10 +6029,10 @@ export const data = JSON.parse(`{
           "Lupine-Free",
           "Mollusk-Free",
           "Alcohol-Free",
-          "Sulfite-Free ?"
+          "Sulfite-Free"
         ],
         "cautions": [
-          "Sulfites ?"
+          "Sulfites"
         ],
         "ingredientLines": [
           "1 medium onion, diced",
