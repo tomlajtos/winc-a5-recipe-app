@@ -3,7 +3,8 @@ import { Divider, Icon, Wrap, WrapItem, Stack, Text } from "@chakra-ui/react";
 import { TbClock } from "react-icons/tb";
 import { TbBowl } from "react-icons/tb";
 import { TbUser } from "react-icons/tb";
-import { filterRecipeInfo } from "../utils/globalFunctions";
+import { filterRecipeInfo, formatTimeInfo } from "../utils/globalFunctions";
+import { NoInfoNote } from "./NoInfoNote";
 
 export const RecipeQuickInfo = ({
   mealType,
@@ -12,15 +13,15 @@ export const RecipeQuickInfo = ({
   servingSize,
 }) => {
   return (
-    <Stack px={4} py={2} spacing={3}>
-      <Wrap w={350} justifyItems={"start"}>
+    <Stack spacing={3}>
+      <Wrap maxW={360} justifyItems={"start"}>
         <WrapItem>
           <Icon as={TbBowl} boxSize={"1.75rem"} />
         </WrapItem>
         <WrapItem alignSelf={"end"}>
           <Text
             fontWeight={600}
-            textColor={"gray.600"}
+            textColor={"gray.700"}
             textTransform={"uppercase"}
           >
             {filterRecipeInfo(mealType)}
@@ -28,36 +29,33 @@ export const RecipeQuickInfo = ({
         </WrapItem>
         <Divider
           orientation={"vertical"}
-          borderColor="gray.800"
-          size={"2rem"}
+          height={"1.25rem"}
+          alignSelf={"center"}
+          borderColor={"gray.700"}
         />
+
         <WrapItem alignSelf={"end"}>
           <Text
             fontWeight={600}
-            textColor={"gray.600"}
+            textColor={"gray.700"}
             textTransform={"uppercase"}
           >
             {filterRecipeInfo(dishType)}
           </Text>
         </WrapItem>
       </Wrap>
-      <Wrap w={350} alignItems="start">
+      <Wrap maxW={360} alignItems="start">
         <Icon as={TbClock} boxSize={"1.5rem"} />
         {!filterRecipeInfo(totalTime) ? (
-          <>
-            <Text> - </Text>
-            <Text fontSize={"sm"} fontStyle={"italic"} color={"gray.500"}>
-              (no total preparation time has been provided)
-            </Text>
-          </>
+          <NoInfoNote category={"preparation time"} />
         ) : (
-          <Text>{filterRecipeInfo(totalTime)} m</Text>
+          <Text fontSize={"lg"}>{formatTimeInfo(totalTime)}</Text>
         )}
       </Wrap>
-      <Wrap w={350} alignItems="start" p>
+      <Wrap maxW={360} alignItems="start" p>
         <Icon as={TbUser} boxSize={"1.5rem"} />
-        <Text fontSize={"lg"} pl={1}>
-          {filterRecipeInfo(servingSize)}
+        <Text fontSize={"lg"} textColor={"gray.700"}>
+          {servingSize}
         </Text>
       </Wrap>
     </Stack>
