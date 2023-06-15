@@ -1,6 +1,7 @@
 {
   "name": "react_exercises_solutions",
   "private": true,
+  "packageManager": "pnpm@8.5.1",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
