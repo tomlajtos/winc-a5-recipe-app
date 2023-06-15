@@ -15,11 +15,14 @@ import {
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbPlant2 } from "react-icons/tb";
 import { TbExclamationCircle } from "react-icons/tb";
+import { BsExclamationTriangleFill } from "react-icons/bs";
 import {
   fixLabel,
   generateKeyPrefix,
   filterRecipeInfo,
+  findCautionErrors,
 } from "../utils/globalFunctions";
+import { CautionsWarning } from "./CautionsWarning";
 import { RecipeInfoTagGroup } from "./RecipeInfoTagGroup";
 
 export const RecipeCard = ({ recipe, handleClick }) => {
@@ -33,7 +36,16 @@ export const RecipeCard = ({ recipe, handleClick }) => {
     cautions,
   } = recipe;
   return (
-    <WrapItem>
+    <WrapItem
+      boxShadow={"lg"}
+      _hover={{
+        cursor: "pointer",
+        mt: "-1px",
+        ml: "-1px",
+        borderRadius: "",
+        boxShadow: "3px 3px 12px 2px #551a6354",
+      }}
+    >
       <Card
         p={0}
         maxW={["100%", 360]}
@@ -41,7 +53,6 @@ export const RecipeCard = ({ recipe, handleClick }) => {
         borderRadius={[null]}
         overflowX={"hidden"}
         bg={"#fefefe"}
-        _hover={{ cursor: "pointer" }}
         onClick={() => handleClick(recipe)}
       >
         <CardHeader h={325} p={0} overflow={["clip"]}>
@@ -71,7 +82,15 @@ export const RecipeCard = ({ recipe, handleClick }) => {
           >
             {fixLabel(title)}
           </Heading>
+          <Center pos={"absolute"} top={"15px"} width={"100%"} px={2}>
+            <CautionsWarning
+              errors={findCautionErrors(recipe)}
+              icon={BsExclamationTriangleFill}
+              compact={true}
+            />
+          </Center>
         </CardHeader>
+
         <CardBody
           pb={"10px"}
           pt={"10px"}
@@ -102,6 +121,8 @@ export const RecipeCard = ({ recipe, handleClick }) => {
             </Center>
           </Flex>
           <Divider borderColor={"gray.400"} />
+
+          {/* label tags */}
           <Flex direction={"column"} h={"100%"} minH={"104px"} rowGap={2}>
             <Spacer />
             <RecipeInfoTagGroup
