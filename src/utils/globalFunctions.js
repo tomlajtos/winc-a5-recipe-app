@@ -123,3 +123,17 @@ export const formatTimeInfo = function (timeInMinutes) {
   }
   return;
 };
+
+/**
+ * */
+export const findCautionErrors = function ({ cautions, healthLabels }) {
+  return healthLabels
+    .filter((label) => label.includes("Free"))
+    .map((label) =>
+      label
+        .split("-")
+        .filter((word) => word !== "Free")
+        .join("-")
+    )
+    .filter((label) => cautions.some((item) => item.includes(label)));
+};
