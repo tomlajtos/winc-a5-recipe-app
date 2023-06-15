@@ -3,29 +3,36 @@ import { Wrap, Text, Grid, GridItem, Heading, Icon } from "@chakra-ui/react";
 export const CautionsWarning = ({ errors, icon, compact = false }) => {
   const commonGridProps = {
     width: "fit-content",
+    maxWidth: "95%",
     mx: "auto",
-    bg: "red.100",
+    border: "2px solid",
     borderColor: "red",
-    gridTemplateColumns: "repeat(9,auto)",
-    gridTemplateRows: "1fr auto",
+    gridTemplateColumns: ["1fr", "40px 1fr"],
+    gridTemplateRows: "fit-content",
+    gridAutoRows: "fit-content",
+    gridColumnGap: 2,
     alignItems: "center",
-    gridColumnGap: "4",
   };
 
   if (errors.length) {
     return compact ? (
       <Grid
+        textAlign={"center"}
         sx={commonGridProps}
-        justifyContent={"center"}
         px={3}
-        minW={"100%"}
-        border={"2px solid"}
         borderRadius={"lg"}
+        bg={"whiteAlpha.700"}
       >
-        <GridItem colSpan={1}>
+        <GridItem colStart={[1]} colEnd={[-1, 2]} rowStart={[1]} rowEnd={[2]}>
           <Icon as={icon} color={"red.600"} boxSize={7} pt={1} />
         </GridItem>
-        <GridItem colSpan={8}>
+        {/* <GridItem gridRow={[2, 1]} colSpan={[9, 8]} rowSpan={1}> */}
+        <GridItem
+          colStart={[1, 2]}
+          colEnd={[2, 3]}
+          rowStart={[2, 1]}
+          rowEnd={[3, 2]}
+        >
           <Text color={"red.600"} fontSize={"sm"} fontWeight={600}>
             Click for more information
           </Text>
@@ -34,17 +41,29 @@ export const CautionsWarning = ({ errors, icon, compact = false }) => {
     ) : (
       <Grid
         sx={commonGridProps}
-        px={8}
+        px={[1, 4, 8]}
         py={2}
-        minW={["100%", null, "80%"]}
-        border={"2px solid"}
+        minW={["95%", null, "80%"]}
         borderRadius={"xl"}
+        bg={"red.100"}
       >
-        <GridItem area={"icon"} colSpan={1} rowSpan={1}>
+        <GridItem
+          colStart={[1]}
+          colEnd={[-1, 2]}
+          rowStart={[1]}
+          rowEnd={[2]}
+          textAlign={"center"}
+        >
           <Icon as={icon} color={"red.600"} boxSize={8} />
         </GridItem>
 
-        <GridItem area={"heading"} colSpan={8} rowSpan={1}>
+        <GridItem
+          colStart={[1, 2]}
+          colEnd={[2, 3]}
+          rowStart={[2, 1]}
+          rowEnd={[3, 2]}
+          textAlign={["center", "left"]}
+        >
           <Heading
             fontSize={"2xl"}
             textTransform={"uppercase"}
@@ -54,23 +73,31 @@ export const CautionsWarning = ({ errors, icon, compact = false }) => {
           </Heading>
         </GridItem>
 
-        <GridItem area={"text"} colSpan={6} rowSpan={1}>
+        <GridItem
+          maxW={"100%"}
+          colStart={[1]}
+          colEnd={[2, 3]}
+          rowStart={[3, 2]}
+          rowEnd={[4, 3]}
+          pl={[0, 2]}
+          textAlign={["center", "left"]}
+        >
           <Text color={"red.600"}>
-            There is discrepancy between the Health Labels and Cautions!
+            {"There is discrepancy between the Health Labels and Cautions!"}
           </Text>
-          <Wrap>
-            <Text color={"red.600"}>This recipe might contain:</Text>
-            {errors.map((i) => (
-              <Text key={i} color={"red.600"}>
-                <Text as={"span"} fontWeight={600}>
-                  {i.toLowerCase() + "(s)"}
-                </Text>
-                <Text as={"span"} fontWeight={400}>
-                  ,
-                </Text>
+          <Text display={"inline"} color={"red.600"}>
+            {"This recipe might contain: "}
+          </Text>
+          {errors.map((i) => (
+            <Text display={"inline"} key={i} color={"red.600"}>
+              <Text as={"span"} fontWeight={600}>
+                {i.toLowerCase() + "(s)"}
               </Text>
-            ))}
-          </Wrap>
+              <Text as={"span"} fontWeight={400}>
+                {", "}
+              </Text>
+            </Text>
+          ))}
         </GridItem>
       </Grid>
     );
