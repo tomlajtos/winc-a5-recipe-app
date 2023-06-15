@@ -20,9 +20,10 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
   return (
     <TableContainer
       border={"1px"}
-      borderColor={"gray.200"}
+      borderColor={"gray.300"}
       borderRadius={"lg"}
       p={2}
+      w={360}
     >
       <Table variant="simple">
         <Thead>
