@@ -83,7 +83,9 @@ export const CautionsWarning = ({ errors, icon, compact = false }) => {
           textAlign={["center", "left"]}
         >
           <Text color={"red.600"}>
-            {"There is discrepancy between the Health Labels and Cautions!"}
+            {
+              "There's conflicting information between Health Labels and Cautions!"
+            }
           </Text>
           <Text display={"inline"} color={"red.600"}>
             {"This recipe might contain: "}
