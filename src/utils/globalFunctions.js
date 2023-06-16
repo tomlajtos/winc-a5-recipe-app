@@ -126,7 +126,7 @@ export const formatTimeInfo = function (timeInMinutes) {
 
 /**
  * */
-export const findCautionErrors = function ({ cautions, healthLabels }) {
+export const findDataConflicts = function ({ cautions, healthLabels }) {
   return healthLabels
     .filter((label) => label.includes("Free"))
     .map((label) =>
