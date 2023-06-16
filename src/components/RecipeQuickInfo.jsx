@@ -16,29 +16,37 @@ export const RecipeQuickInfo = ({
     <Stack spacing={3}>
       <Wrap maxW={360} justifyItems={"start"}>
         <WrapItem>
-          <Icon as={TbBowl} boxSize={"1.75rem"} />
+          <Icon verticalAlign={"start"} as={TbBowl} boxSize={"1.75rem"} />
         </WrapItem>
-        <WrapItem alignSelf={"end"}>
+        <WrapItem
+          maxW={320}
+          pt={1}
+          display={"flex"}
+          flexDir={"row"}
+          flexWrap={"wrap"}
+          columnGap={2}
+          rowGap={0}
+        >
           <Text
             fontWeight={600}
             textColor={"gray.700"}
             textTransform={"uppercase"}
+            alignSelf={"end"}
           >
             {filterRecipeInfo(mealType)}
           </Text>
-        </WrapItem>
-        <Divider
-          orientation={"vertical"}
-          height={"1.25rem"}
-          alignSelf={"center"}
-          borderColor={"gray.700"}
-        />
+          <Divider
+            orientation={"vertical"}
+            height={"1.25rem"}
+            alignSelf={"center"}
+            borderColor={"gray.700"}
+          />
 
-        <WrapItem alignSelf={"end"}>
           <Text
             fontWeight={600}
             textColor={"gray.700"}
             textTransform={"uppercase"}
+            alignSelf={"end"}
           >
             {filterRecipeInfo(dishType)}
           </Text>
