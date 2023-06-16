@@ -43,6 +43,17 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
     handleButtonClick(null);
   };
 
+  /**
+   * Prevents the use of previous scroll position, pos at the top when rendered
+   * A better solution is probably out of the scope of "react basics" */
+  const scrollToTopOnRender = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "instant",
+    });
+  };
+  scrollToTopOnRender();
+
   return (
     <Flex
       minH={"100vh"}
