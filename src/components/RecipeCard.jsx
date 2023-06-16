@@ -15,12 +15,11 @@ import {
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbPlant2 } from "react-icons/tb";
 import { TbExclamationCircle } from "react-icons/tb";
-import { BsExclamationTriangleFill } from "react-icons/bs";
 import {
   fixLabel,
   generateKeyPrefix,
   filterRecipeInfo,
-  findCautionErrors,
+  findDataConflicts,
 } from "../utils/globalFunctions";
 import { CautionsWarning } from "./CautionsWarning";
 import { RecipeInfoTagGroup } from "./RecipeInfoTagGroup";
@@ -84,8 +83,7 @@ export const RecipeCard = ({ recipe, handleClick }) => {
           </Heading>
           <Center pos={"absolute"} top={"15px"} width={"100%"} px={2}>
             <CautionsWarning
-              errors={findCautionErrors(recipe)}
-              icon={BsExclamationTriangleFill}
+              errors={findDataConflicts(recipe)}
               compact={true}
             />
           </Center>

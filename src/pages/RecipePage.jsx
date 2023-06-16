@@ -8,12 +8,11 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { TbChevronLeft } from "react-icons/tb";
-import { BsExclamationTriangleFill } from "react-icons/bs";
 import {
   fixLabel,
   generateKeyPrefix,
   filterRecipeInfo,
-  findCautionErrors,
+  findDataConflicts,
 } from "../utils/globalFunctions";
 
 import { IconButton } from "../components/ui/IconButton";
@@ -74,10 +73,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
       >
         {fixLabel(label)}
       </Heading>
-      <CautionsWarning
-        errors={findCautionErrors(recipe)}
-        icon={BsExclamationTriangleFill}
-      />
+      <CautionsWarning errors={findDataConflicts(recipe)} />
       {/* recipe details */}
       <Grid
         templateColumns={["1fr", "1fr", "repeat(2,max-content)"]}
