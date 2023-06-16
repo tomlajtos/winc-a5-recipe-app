@@ -3538,7 +3538,7 @@ export const data = JSON.parse(`{
     },
     {
       "recipe": {
-        "label": "Korean Seasoned Potatoes (감자 조&",
+        "label": "Korean Seasoned Potatoes (감자 조&)",
         "image": "https://media.wincacademy.nl/react/images/final-project/korean-potatoes.webp",
         "url": "http://www.food.com/recipe/korean-seasoned-potatoes-44048-51088-51312-390718",
         "yield": 4,
