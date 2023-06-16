@@ -31,6 +31,7 @@ export const CautionsWarning = ({ errors, compact = false }) => {
     ) : (
       <Alert
         status={"warning"}
+        flexDirection={["column", "row"]}
         alignItems={"center"}
         columnGap={6}
         px={[2, 4, 6]}
