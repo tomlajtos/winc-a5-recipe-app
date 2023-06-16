@@ -1,107 +1,79 @@
-import { Wrap, Text, Grid, GridItem, Heading, Icon } from "@chakra-ui/react";
+import {
+  Wrap,
+  Text,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 
-export const CautionsWarning = ({ errors, icon, compact = false }) => {
-  const commonGridProps = {
-    width: "fit-content",
-    maxWidth: "95%",
-    mx: "auto",
-    border: "2px solid",
-    borderColor: "red",
-    gridTemplateColumns: ["1fr", "40px 1fr"],
-    gridTemplateRows: "fit-content",
-    gridAutoRows: "fit-content",
-    gridColumnGap: 2,
-    alignItems: "center",
-  };
-
+/**
+ * Shows an alert if there is conflict between cautions and health labels
+ * It renders a compact format if compact prop is true - used in RecipeCard */
+export const CautionsWarning = ({ errors, compact = false }) => {
   if (errors.length) {
     return compact ? (
-      <Grid
-        textAlign={"center"}
-        sx={commonGridProps}
-        px={3}
-        borderRadius={"lg"}
-        bg={"whiteAlpha.700"}
+      <Alert
+        status={"warning"}
+        variant={"solid"}
+        flexDirection={["column", "row"]}
+        alignItems={"center"}
+        gap={2}
+        px={4}
+        fontWeight={600}
+        textAlign={["center", "left"]}
+        colorScheme={"red"}
+        bg={"#dc26269f"}
       >
-        <GridItem colStart={[1]} colEnd={[-1, 2]} rowStart={[1]} rowEnd={[2]}>
-          <Icon as={icon} color={"red.600"} boxSize={7} pt={1} />
-        </GridItem>
-        {/* <GridItem gridRow={[2, 1]} colSpan={[9, 8]} rowSpan={1}> */}
-        <GridItem
-          colStart={[1, 2]}
-          colEnd={[2, 3]}
-          rowStart={[2, 1]}
-          rowEnd={[3, 2]}
-        >
-          <Text color={"red.600"} fontSize={"sm"} fontWeight={600}>
-            Click for more information
-          </Text>
-        </GridItem>
-      </Grid>
+        <AlertIcon boxSize={"30px"} />
+        This recipe contains conflicting health information.
+      </Alert>
     ) : (
-      <Grid
-        sx={commonGridProps}
-        px={[1, 4, 8]}
-        py={2}
-        minW={["95%", null, "80%"]}
-        borderRadius={"xl"}
-        bg={"red.100"}
+      <Alert
+        status={"warning"}
+        alignItems={"center"}
+        columnGap={6}
+        px={[2, 4, 6]}
+        justifyContent={"start"}
+        textAlign={["center", "left"]}
+        height={"fit-content"}
+        colorScheme={"red"}
       >
-        <GridItem
-          colStart={[1]}
-          colEnd={[-1, 2]}
-          rowStart={[1]}
-          rowEnd={[2]}
-          textAlign={"center"}
-        >
-          <Icon as={icon} color={"red.600"} boxSize={8} />
-        </GridItem>
-
-        <GridItem
-          colStart={[1, 2]}
-          colEnd={[2, 3]}
-          rowStart={[2, 1]}
-          rowEnd={[3, 2]}
-          textAlign={["center", "left"]}
-        >
-          <Heading
-            fontSize={"2xl"}
+        <AlertIcon boxSize="40px" mr={0} bg={"red.50"} borderRadius={"full"} />
+        <Wrap direction={"column"} spacing={0}>
+          <AlertTitle
+            mt={[4, 2]}
+            mb={[2, 1]}
+            fontSize={"xl"}
+            textColor={"red.600"}
             textTransform={"uppercase"}
-            color={"red.600"}
           >
             attention
-          </Heading>
-        </GridItem>
-
-        <GridItem
-          maxW={"100%"}
-          colStart={[1]}
-          colEnd={[2, 3]}
-          rowStart={[3, 2]}
-          rowEnd={[4, 3]}
-          pl={[0, 2]}
-          textAlign={["center", "left"]}
-        >
-          <Text color={"red.600"}>
-            {
-              "There's conflicting information between Health Labels and Cautions!"
-            }
-          </Text>
-          <Text display={"inline"} color={"red.600"}>
-            {"This recipe might contain: "}
-          </Text>
-          {errors.map((i) => (
-            <Text display={"inline"} key={i} color={"red.600"}>
-              <Text as={"span"} fontWeight={600}>
-                {i.toLowerCase() + "(s)"}
-              </Text>
-              <Text as={"span"} fontWeight={400}>
-                {", "}
-              </Text>
+          </AlertTitle>
+          <AlertDescription maxWidth={"100%"}>
+            <Text color={"red.600"}>
+              {
+                "There's conflicting information between Health Labels and Cautions!"
+              }
             </Text>
-          ))}
-        </GridItem>
-      </Grid>
+            <Text display={"inline"} color={"red.600"}>
+              {"This recipe might contain: "}
+            </Text>
+            {/* Show all health cautions on whitch the information might be wrong */}
+            {errors.map((item, index) => (
+              <Text display={"inline"} key={item} color={"red.600"}>
+                <Text as={"span"} fontWeight={600}>
+                  {item.toLowerCase() + "(s)"}
+                </Text>
+                <Text as={"span"} fontWeight={400}>
+                  {/* Add "." instead of "," if last/only-one item */}
+                  {index + 1 === errors.length ? "." : ", "}
+                </Text>
+              </Text>
+            ))}
+          </AlertDescription>
+        </Wrap>
+      </Alert>
     );
   } else {
     return null;
