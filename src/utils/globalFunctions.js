@@ -1,11 +1,18 @@
-// helper funcion to capitalize a string
+/**
+ * helper funcion to capitalize a string
+ * @param {string}
+ * @return {string}
+ * */
 export const strCapital = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
 /**
  * Remove the word "recipes" from recipe.label and capitalize it properly
+ ** (figured this would be more fun than just correcting the database)
  * ---
  * Each recipe obj. in the db-file represents a single recipe,
  * so the word "recipes" in some of the labels does not make any sense.
+ * @param {string} label (recipe title)
+ * @return {string} formatted label
  */
 export const fixLabel = (label) => {
   const lowercaseWords = [
@@ -31,8 +38,8 @@ export const fixLabel = (label) => {
 };
 
 /**
- * Just for fun, don't judge me...
  * An attempt to generate uniqe non random keys for iterable components/elements
+ ** it's just for fun, don't judge me... :), tbc >> function below
  * @param {string} prefix - someting that resambles the data thats being iterated on with .map()
  * @param {string/number}  item of the iterable data
  * @param {number} index of item
@@ -66,7 +73,10 @@ export const generateKeyPrefix = function (customStr, specStr) {
 /**
  * Validate input data - returns false if it is a fallsy value, or empty array or an empty object
  * Called inside filterRecipeInfo and components which should only rendered if valid data is passed to then as props
- * works simillar to conditional rendering */
+ * works simillar to conditional rendering
+ * @param {any type}
+ * @return {boolean} */
+
 export const checkData = function (data) {
   // this checks for falsy values (Importantely, resolves null as a velue beofre it would get to .length method)
   if (!data) {
@@ -80,9 +90,10 @@ export const checkData = function (data) {
 
 /**
  * Filters data when/before it is passed to a component as prop(s) if fitering critria is provided
- * can be used to filter when only certain elements of a dataset is supposed to be shown by a component
+ * can be used to filter data when only certain elements of a dataset is supposed to be shown by a component
  * @param {number, string, array, object} info
- * @param  {array} specifiedInfo, array of strings to be shown if present in the data passed to the component */
+ * @param  {array<string>} specifiedInfo
+ * @return {array<string|object>} */
 export const filterRecipeInfo = function (info, specifiedInfo) {
   if (checkData(info)) {
     if ("number" === typeof info || "string" === typeof info) {
@@ -111,7 +122,10 @@ export const filterRecipeInfo = function (info, specifiedInfo) {
 };
 
 /**
- * Formats cooking/prep time data from minutes to hours and minutes if applicable */
+ * Formats cooking/prep time data from minutes to hours and minutes if applicable
+ * @param {number}
+ * @return {string} */
+
 export const formatTimeInfo = function (timeInMinutes) {
   if (timeInMinutes) {
     const hrs = Math.floor(timeInMinutes / 60);
@@ -125,7 +139,12 @@ export const formatTimeInfo = function (timeInMinutes) {
 };
 
 /**
- * */
+ * Compares two arrays (cautions and healthLabels) of strings with mutually exclusive data
+ * and filters out pontential similarities
+ ** (figured this would be more fun than just correcting the database)
+ * @param {array<string>}, cautions
+ * @param  {array<string>} specifiedInfo, array of strings to be shown if present in the data passed to the component
+ * @return {array<string>} matching items, strings are formatted to be used in an alert message */
 export const findDataConflicts = function ({ cautions, healthLabels }) {
   return healthLabels
     .filter((label) => label.includes("Free"))

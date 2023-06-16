@@ -1,5 +1,7 @@
 import { Box, Text } from "@chakra-ui/react";
 
+/**
+ * Text to show when recipe prop value is emty or 0 */
 export const NoInfoNote = ({ category }) => {
   return (
     <Box>
