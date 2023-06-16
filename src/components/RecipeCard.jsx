@@ -55,7 +55,7 @@ export const RecipeCard = ({ recipe, handleClick }) => {
         bg={"#fefefe"}
         onClick={() => handleClick(recipe)}
       >
-        <CardHeader h={325} p={0} overflow={["clip"]}>
+        <CardHeader h={325} p={0} overflow={["hidden"]}>
           <Image
             boxSize={"360px"}
             pb={4}
