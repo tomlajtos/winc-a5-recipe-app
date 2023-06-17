@@ -1,8 +1,9 @@
-import { RecipeListPage } from "./pages/RecipeListPage";
-import { Wrap } from "@chakra-ui/react";
-import { RecipePage } from "./pages/RecipePage";
-import { data } from "./utils/data";
 import { useState } from "react";
+import { Wrap } from "@chakra-ui/react";
+import { data } from "./utils/data";
+import { RecipeListPage } from "./pages/RecipeListPage";
+import { RecipePage } from "./pages/RecipePage";
+import { SourceLink } from "./components/SourceLink";
 
 function App() {
   const recipes = data.hits.map((hit) => hit.recipe);
@@ -24,6 +25,7 @@ function App() {
       ) : (
         <RecipeListPage recipes={recipes} handleClick={setSelectedRecipe} />
       )}
+      <SourceLink />
     </Wrap>
   );
 }
