@@ -41,7 +41,7 @@ export const fixLabel = (label) => {
  * An attempt to generate uniqe non random keys for iterable components/elements
  ** it's just for fun, don't judge me... :), tbc >> function below
  * @param {string} prefix - someting that resambles the data thats being iterated on with .map()
- * @param {string/number}  item of the iterable data
+ * @param {string|number|array|object}  uniqeVal of the iterable
  * @param {number} index of item
  * @return {string} a hoppefully uniqe string that can be used as a key prop of a React component */
 export const betterKeyThenIndex = (prefix, item, index) => {
@@ -91,15 +91,13 @@ export const checkData = function (data) {
 /**
  * Filters data when/before it is passed to a component as prop(s) if fitering critria is provided
  * can be used to filter data when only certain elements of a dataset is supposed to be shown by a component
- * @param {number, string, array, object} info
+ * @param {number|string|array|object} info
  * @param  {array<string>} specifiedInfo
  * @return {array<string|object>} */
 export const filterRecipeInfo = function (info, specifiedInfo) {
   if (checkData(info)) {
     if ("number" === typeof info || "string" === typeof info) {
-      // if (info !== 0) {
       return info;
-      // }
     } else if (Array.isArray(info)) {
       if (specifiedInfo) {
         return specifiedInfo.filter((sI) => info.includes(sI));
