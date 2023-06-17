@@ -26,7 +26,7 @@ export const CautionsWarning = ({ errors, compact = false }) => {
         bg={"#dc26269f"}
       >
         <AlertIcon boxSize={"30px"} />
-        This recipe contains conflicting health information.
+        {"This recipe contains conflicting health information."}
       </Alert>
     ) : (
       <Alert
@@ -40,7 +40,12 @@ export const CautionsWarning = ({ errors, compact = false }) => {
         height={"fit-content"}
         colorScheme={"red"}
       >
-        <AlertIcon boxSize="40px" mr={0} bg={"red.50"} borderRadius={"full"} />
+        <AlertIcon
+          boxSize={"40px"}
+          mr={0}
+          bg={"red.50"}
+          borderRadius={"full"}
+        />
         <Wrap direction={"column"} spacing={0}>
           <AlertTitle
             mt={[4, 2]}
@@ -49,7 +54,7 @@ export const CautionsWarning = ({ errors, compact = false }) => {
             textColor={"red.600"}
             textTransform={"uppercase"}
           >
-            attention
+            {"attention"}
           </AlertTitle>
           <AlertDescription maxWidth={"100%"}>
             <Text color={"red.600"}>

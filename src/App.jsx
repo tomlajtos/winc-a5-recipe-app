@@ -9,10 +9,10 @@ function App() {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   return (
     <Wrap
-      minH="100vh"
+      minH={"100vh"}
       w={"100%"}
       minW={"220px"}
-      flexDir="column"
+      flexDir={"column"}
       justify={"center"}
       bg={"gray.50"}
     >

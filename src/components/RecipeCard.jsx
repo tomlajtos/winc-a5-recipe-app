@@ -75,7 +75,7 @@ export const RecipeCard = ({ recipe, handleClick }) => {
             fontSize={"1.5rem"}
             pos={"absolute"}
             top={"125px"}
-            textColor="#fefefe"
+            textColor={"#fefefe"}
             bgGradient={"linear(to-b,transparent, #00000066)"}
           >
             {fixLabel(title)}

@@ -1,4 +1,3 @@
-//TODO: fix responsive layout title/fontSize or heading-size
 import {
   Divider,
   Flex,
@@ -38,7 +37,6 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
     yield: servingSize,
     totalNutrients: { ...totalNutrients },
   } = recipe;
-
   const handleClick = () => {
     handleButtonClick(null);
   };
@@ -58,7 +56,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
     <Flex
       minH={"100vh"}
       w={["100%", null, null, "992px", "container.lg", "container.xl"]}
-      flexDir="column"
+      flexDir={"column"}
       rowGap={[1, 2, 4]}
       bg={"#fefefe"}
       pb={8}
@@ -84,6 +82,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
       >
         {fixLabel(label)}
       </Heading>
+      {/* alert if applies */}
       <CautionsWarning errors={findDataConflicts(recipe)} />
       {/* recipe details */}
       <Grid
@@ -102,7 +101,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
           rowEnd={[2, null, 3]}
           maxW={360}
         >
-          <Flex flexDir="column" alignItems="start" rowGap={[6, 8]}>
+          <Flex flexDir={"column"} alignItems={"start"} rowGap={[6, 8]}>
             <RecipeQuickInfo
               mealType={mealType}
               dishType={dishType}
@@ -122,9 +121,9 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
           rowEnd={[3, null, 2]}
           maxW={360}
         >
-          <Flex flexDir="column" alignItems="start" maxW={360} rowGap={4}>
+          <Flex flexDir={"column"} alignItems={"start"} maxW={360} rowGap={4}>
             {/* tag group for health labels */}
-            <Flex flexDir="column" alignItems="start" rowGap={2}>
+            <Flex flexDir={"column"} alignItems={"start"} rowGap={2}>
               <RecipeSubHeading text={"health labels"} />
               {filterRecipeInfo(healthLabels) ? (
                 <RecipeInfoTagGroup
@@ -138,7 +137,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
               )}
             </Flex>
             {/* tag group for diet labels */}
-            <Flex flexDir="column" alignItems="start" rowGap={2}>
+            <Flex flexDir={"column"} alignItems={"start"} rowGap={2}>
               <RecipeSubHeading text={"diet labels"} />
               {filterRecipeInfo(dietLabels) ? (
                 <RecipeInfoTagGroup
@@ -152,7 +151,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
               )}
             </Flex>
             {/* tag group for cautions */}
-            <Flex flexDir="column" alignItems="start" rowGap={2}>
+            <Flex flexDir={"column"} alignItems={"start"} rowGap={2}>
               <RecipeSubHeading text={"cautions"} />
               {filterRecipeInfo(cautions) ? (
                 <RecipeInfoTagGroup
@@ -176,7 +175,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
           rowEnd={[4, null, 3]}
           overflowX={"hidden"}
         >
-          <Flex flexDir="column" alignItems="start" rowGap={2}>
+          <Flex flexDir={"column"} alignItems={"start"} rowGap={2}>
             <RecipeSubHeading text={"total nutrients"} />
             <RecipeNutrientsTable nutrients={totalNutrients} />
           </Flex>

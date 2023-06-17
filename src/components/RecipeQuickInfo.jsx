@@ -52,7 +52,7 @@ export const RecipeQuickInfo = ({
           </Text>
         </WrapItem>
       </Wrap>
-      <Wrap maxW={360} alignItems="start">
+      <Wrap maxW={360} alignItems={"start"}>
         <Icon as={TbClock} boxSize={"1.5rem"} />
         {!filterRecipeInfo(totalTime) ? (
           <NoInfoNote category={"preparation time"} />
@@ -60,7 +60,7 @@ export const RecipeQuickInfo = ({
           <Text fontSize={"lg"}>{formatTimeInfo(totalTime)}</Text>
         )}
       </Wrap>
-      <Wrap maxW={360} alignItems="start" p>
+      <Wrap maxW={360} alignItems={"start"} p>
         <Icon as={TbUser} boxSize={"1.5rem"} />
         <Text fontSize={"lg"} textColor={"gray.700"}>
           {servingSize}

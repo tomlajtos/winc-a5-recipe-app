@@ -15,7 +15,7 @@ export const RecipeListPage = ({ recipes, handleClick }) => {
         }}
         fontSize={["5xl", null, "7xl", null, null, "8xl"]}
       >
-        recipe app
+        {"recipe app"}
       </Heading>
       <RecipeSearch recipes={recipes} handleClick={handleClick} />
     </>

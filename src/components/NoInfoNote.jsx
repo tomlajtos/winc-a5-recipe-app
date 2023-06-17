@@ -6,7 +6,7 @@ export const NoInfoNote = ({ category }) => {
   return (
     <Box>
       <Text display={"inline"} mr={2}>
-        -
+        {"-"}
       </Text>
       <Text
         display={"inline"}

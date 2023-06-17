@@ -8,11 +8,7 @@ import {
   Th,
   Td,
 } from "@chakra-ui/react";
-import {
-  betterKeyThenIndex,
-  generateKeyPrefix,
-  filterRecipeInfo,
-} from "../utils/globalFunctions";
+import { betterKeyThenIndex, filterRecipeInfo } from "../utils/globalFunctions";
 
 import { Button } from "../components/ui/Button";
 
@@ -25,12 +21,12 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
       p={2}
       w={360}
     >
-      <Table variant="simple">
+      <Table variant={"simple"}>
         <Thead>
           <Tr>
             <Th></Th>
-            <Th textColor={"gray.800"}>quantity</Th>
-            <Th isNumeric>unit</Th>
+            <Th textColor={"gray.800"}>{" quantity "}</Th>
+            <Th isNumeric>{"unit"}</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -56,7 +52,7 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
                 handleClick={() =>
                   console.log("showing complete nutrients analitics")
                 }
-                variant="link"
+                variant={"link"}
                 text={"show all nutrients"}
                 pt={2}
                 fontSize={12}
