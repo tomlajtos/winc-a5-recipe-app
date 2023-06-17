@@ -44,8 +44,10 @@ export const fixLabel = (label) => {
  * @param {string|number|array|object}  uniqeVal of the iterable
  * @param {number} index of item
  * @return {string} a hoppefully uniqe string that can be used as a key prop of a React component */
-export const betterKeyThenIndex = (prefix, item, index) => {
-  const str = item.toString();
+export const betterKeyThenIndex = (prefix, uniqueVal, index) => {
+  const str = uniqueVal.toString().includes("object")
+    ? Object.keys(uniqueVal).join("")
+    : uniqueVal.toString();
   const len = str.length;
   const fChC = str.charCodeAt(0);
   const lChC = str.charCodeAt(len - 1);
