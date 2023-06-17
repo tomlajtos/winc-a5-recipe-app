@@ -91,7 +91,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         mx={"auto"}
         p={[2, null, 4]}
         rowGap={[6, null, 10]}
-        columnGap={[0, null, 8, 12]}
+        columnGap={[0, null, 10, 16]}
       >
         {/* container: quick info about dis/meal, cooking/prep time, serving size */}
         <GridItem
