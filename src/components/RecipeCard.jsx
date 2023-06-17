@@ -1,4 +1,3 @@
-// TODO: move exp funtions to globalFunctions
 import {
   Card,
   CardHeader,
@@ -124,25 +123,25 @@ export const RecipeCard = ({ recipe, handleClick }) => {
           <Flex direction={"column"} h={"100%"} minH={"104px"} rowGap={2}>
             <Spacer />
             <RecipeInfoTagGroup
-              key={generateKeyPrefix("hl_", title)}
               filteredInfo={filterRecipeInfo(healthLabels, [
                 "Vegetarian",
                 "Vegan",
               ])}
+              prefix={generateKeyPrefix("hl_", title)}
               textTransform={"uppercase"}
               tagColor={"green"}
               icon={TbPlant2}
             />
             <RecipeInfoTagGroup
-              key={generateKeyPrefix("dl_", title)}
               filteredInfo={filterRecipeInfo(dietLabels)}
+              prefix={generateKeyPrefix("dl_", title)}
               textTransform={"uppercase"}
               tagColor={"orange"}
               icon={TbReportAnalytics}
             />
             <RecipeInfoTagGroup
-              key={generateKeyPrefix("cau_", title)}
               filteredInfo={filterRecipeInfo(cautions)}
+              prefix={generateKeyPrefix("cau_", title)}
               textTransform={"uppercase"}
               tagColor={"red"}
               icon={TbExclamationCircle}
