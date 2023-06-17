@@ -5,16 +5,18 @@ import { useState } from "react";
 
 export const RecipeSearch = ({ recipes, handleClick }) => {
   const [searchField, setSearchField] = useState("");
-  // split user input in serchfield by below special charakters and white-space,
+  // split user input in serchfield by below special characters and white-space,
   // hyphen is not included since it can be found in health labels.
-  const searchTerms = searchField.split(/[\s\+\,\/\\]+/g);
+  const searchTerms = searchField.split(/[\s+,/\\]+/g);
 
   // helper functions to check for matches in recipe label(title) and health labels
   const isMatchingLabel = (recipe, term) =>
     recipe.label.toLowerCase().includes(term.toLowerCase());
 
   const isMatchingHealthLabel = (recipe, term) =>
-    recipe.healthLabels.join(" ").toLowerCase().includes(term.toLowerCase());
+    recipe.healthLabels
+      .map((label) => label.toLowerCase())
+      .includes(term.toLowerCase());
 
   const findMatchingRecipes = (recipes, terms = []) => {
     let matchedRecipes = recipes;
