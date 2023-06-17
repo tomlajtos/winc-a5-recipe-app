@@ -58,9 +58,15 @@ export const CautionsWarning = ({ errors, compact = false }) => {
           </AlertTitle>
           <AlertDescription maxWidth={"100%"}>
             <Text color={"red.600"}>
-              {
-                "There's conflicting information between Health Labels and Cautions!"
-              }
+              {"There's conflicting information between "}
+              <Text as={"span"} fontStyle={"italic"}>
+                {"health labels "}
+              </Text>
+              {"and "}
+              <Text as={"span"} fontStyle={"italic"}>
+                {"cautions"}
+              </Text>
+              {"!"}
             </Text>
             <Text display={"inline"} color={"red.600"}>
               {"This recipe might contain: "}
