@@ -58,7 +58,7 @@ export const CautionsWarning = ({ errors, compact = false }) => {
           </AlertTitle>
           <AlertDescription maxWidth={"100%"}>
             <Text color={"red.600"}>
-              {"There's conflicting information between "}
+              {"There is conflicting information between "}
               <Text as={"span"} fontStyle={"italic"}>
                 {"health labels "}
               </Text>
