@@ -30,10 +30,18 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
   };
 
   const handleChange = (event) => setSearchField(event.target.value);
+  const handleSearchClear = () => {
+    document.getElementById("searchInput").value = "";
+    setSearchField("");
+  };
 
   return (
     <Flex direction={"column"} align={"center"} gap={8} minW={"100%"} py={8}>
-      <SearchInput handleChange={handleChange} />
+      <SearchInput
+        handleChange={handleChange}
+        handleClick={handleSearchClear}
+        searchField={searchField}
+      />
       <RecipeList
         recipes={findMatchingRecipes(recipes, searchTerms)}
         handleClick={handleClick}
