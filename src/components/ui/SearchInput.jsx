@@ -21,17 +21,16 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
         placeholder={"Find a recipe..."}
         _placeholder={{ color: "gray.500" }}
         _hover={{ borderColor: "gray.600", bg: "gray.50" }}
+        sx={{
+          "::-webkit-search-cancel-button, ::-webkit-search-decoration": {
+            display: "none",
+          },
+        }}
         onChange={handleChange}
       />
       {searchField && (
-        <InputRightElement
-          mr={4}
-          zIndex={999}
-          position={"absolute"}
-          right={"4%"}
-        >
+        <InputRightElement mr={6}>
           <IconButton
-            handleClick={handleClick}
             variant={"ghost"}
             buttonIcon={SmallCloseIcon}
             h={"90%"}
@@ -41,6 +40,7 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
             _hover={{ bg: "gray.50" }}
             _active={{ bg: "gray.50" }}
             _focus={{ bg: "gray.50" }}
+            handleClick={handleClick}
           />
         </InputRightElement>
       )}
