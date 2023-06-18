@@ -8,6 +8,10 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
       display={"flex"}
       flexWrap={"wrap"}
       maxW={["95%", "90%", "700px"]}
+      sx={{
+        "-webkit-appearance": "none",
+        "-webkit-border-radius": 4,
+      }}
     >
       <Input
         type={"search"}
@@ -25,6 +29,8 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
           "::-webkit-search-cancel-button, ::-webkit-search-decoration": {
             display: "none",
           },
+          "-webkit-appearance": "none",
+          "-webkit-border-radius": 4,
         }}
         onChange={handleChange}
       />
