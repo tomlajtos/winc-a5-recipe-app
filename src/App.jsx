@@ -16,6 +16,8 @@ function App() {
       flexDir={"column"}
       justify={"center"}
       bg={"gray.50"}
+      spacing={0}
+      pb={14}
     >
       {selectedRecipe ? (
         <RecipePage
