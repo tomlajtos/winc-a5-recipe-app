@@ -1,3 +1,4 @@
+//TODO: fix input border rounding on mobile
 import { InputGroup, Input, InputRightElement } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { IconButton } from "./IconButton";
@@ -7,11 +8,7 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
     <InputGroup
       display={"flex"}
       flexWrap={"wrap"}
-      maxW={["95%", "90%", "700px"]}
-      sx={{
-        "-webkit-appearance": "none",
-        "-webkit-border-radius": 4,
-      }}
+      maxW={["98%", "95%", "700px"]}
     >
       <Input
         type={"search"}
@@ -29,8 +26,8 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
           "::-webkit-search-cancel-button, ::-webkit-search-decoration": {
             display: "none",
           },
-          "-webkit-appearance": "none",
-          "-webkit-border-radius": 4,
+          WebkitAppearance: "none",
+          WebkitBorderRadius: 4,
         }}
         onChange={handleChange}
       />
