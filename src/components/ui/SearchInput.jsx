@@ -16,7 +16,8 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
             display: "none",
           },
           MozAppearance: "none",
-          WebkitAppearance: "none",
+          SearchfieldDecoration: "none",
+          WebkitAppearance: "textfield",
           WebkitBorderRadius: 0,
         }}
         type={"search"}
