@@ -15,11 +15,8 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
           "::-webkit-search-cancel-button, ::-webkit-search-decoration": {
             display: "none",
           },
-          MozAppearance: "none",
-          SearchfieldDecoration: "none",
-          WebkitAppearance: "textfield",
-          WebkitBorderRadius: 0,
         }}
+        borderRadius={["full", null, 6]}
         type={"search"}
         id={"searchInput"}
         name={"q"}
