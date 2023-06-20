@@ -11,6 +11,14 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
       maxW={["98%", "95%", "700px"]}
     >
       <Input
+        sx={{
+          "::-webkit-search-cancel-button, ::-webkit-search-decoration": {
+            display: "none",
+          },
+          MozAppearance: "none",
+          WebkitAppearance: "none",
+          WebkitBorderRadius: 0,
+        }}
         type={"search"}
         id={"searchInput"}
         name={"q"}
@@ -22,13 +30,6 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
         placeholder={"Find a recipe..."}
         _placeholder={{ color: "gray.500" }}
         _hover={{ borderColor: "gray.600", bg: "gray.50" }}
-        sx={{
-          "::-webkit-search-cancel-button, ::-webkit-search-decoration": {
-            display: "none",
-          },
-          WebkitAppearance: "none",
-          WebkitBorderRadius: 4,
-        }}
         onChange={handleChange}
       />
       {searchField && (
