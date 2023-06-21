@@ -1,4 +1,3 @@
-//TODO: fix input border rounding on mobile
 import { InputGroup, Input, InputRightElement } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { IconButton } from "./IconButton";
@@ -22,12 +21,13 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
         name={"q"}
         variant={"outline"}
         mx={[1, 2, 4]}
-        colorScheme={"facebook"}
         borderColor={"gray.400"}
         focusBorderColor={"purple.800"}
         placeholder={"Find a recipe..."}
         _placeholder={{ color: "gray.500" }}
         _hover={{ borderColor: "gray.600", bg: "gray.50" }}
+        _active={{ bg: "gray.50" }}
+        _focusWithin={{ bg: "gray.50" }}
         onChange={handleChange}
       />
       {searchField && (
@@ -37,11 +37,11 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
             buttonIcon={SmallCloseIcon}
             h={"90%"}
             fontSize={"25px"}
-            bg={"gray.50"}
+            bg={"transparent"}
             color={"purple.900"}
-            _hover={{ bg: "gray.50" }}
-            _active={{ bg: "gray.50" }}
-            _focus={{ bg: "gray.50" }}
+            _hover={{ bg: "transparent" }}
+            _active={{ bg: "transparent" }}
+            _focus={{ bg: "transparent" }}
             handleClick={handleClick}
           />
         </InputRightElement>
