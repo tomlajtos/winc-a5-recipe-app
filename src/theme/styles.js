@@ -8,4 +8,10 @@ const breakpoints = {
   "2xl": "1536px",
 };
 
-export const theme = extendTheme({ breakpoints });
+// make box-shadow type:outline transparent >> input has no visible outline on focus
+// withot affecting accessibility, hopefully
+const shadows = {
+  outline: "0 0 0 3px rgba(161,66,220,0)",
+};
+
+export const theme = extendTheme({ breakpoints, shadows });
