@@ -1,8 +1,6 @@
 import { useState } from "react";
 import {
-  Checkbox,
   CheckboxGroup,
-  Icon,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -11,9 +9,9 @@ import {
   ModalBody,
   ModalCloseButton,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import { TbHeart, TbHeartOff, TbHeartBroken } from "react-icons/tb";
-import { Button } from "./Button";
 import { ButtonCheckbox } from "./ButtonCheckbox";
 
 export const FilterModal = ({
@@ -21,24 +19,9 @@ export const FilterModal = ({
   isOpen,
   filters,
   handleFilterChange,
-  // onClick,
 }) => {
-  // const handleButtonClick = (onClick) => {
-  //   const terms = filters.reduce(
-  //     (res, filter) => (filter.isSelected ? res.concat(filter.id) : res),
-  //     []
-  //   );
-  //   onClick(terms);
-  //   console.log(
-  //     // "button:",
-  //     // filterTerms,
-  //     "modal terms:",
-  //     terms
-  //   );
-  // };
-
   return (
-    <Modal onClose={onClose} isOpen={isOpen} size={"sm"}>
+    <Modal onClose={onClose} isOpen={isOpen} size={"xs"}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader textAlign={"center"} textTransform={"capitalize"} mt={2}>
@@ -48,7 +31,7 @@ export const FilterModal = ({
         <ModalBody>
           <CheckboxGroup colorScheme="transparent">
             <Stack
-              spacing={[1, 4]}
+              spacing={4}
               direction={["column"]}
               align={"center"}
               textAlign={"center"}
@@ -80,17 +63,17 @@ export const FilterModal = ({
             </Stack>
           </CheckboxGroup>
         </ModalBody>
-        <ModalFooter>
-          {/* <Button */}
-          {/*   mx={"auto"} */}
-          {/*   variant={"outline"} */}
-          {/*   colorScheme={"purple"} */}
-          {/*   text={"apply filters"} */}
-          {/*   alignSelf={"center"} */}
-          {/*   w={"60%"} */}
-          {/*   my={4} */}
-          {/*   onClick={() => handleButtonClick(onClick)} */}
-          {/* /> */}
+        <ModalFooter justifyContent={"center"}>
+          <Text textColor="gray.500">
+            {"Selected filters:"}
+            <Text as={"span"} px={1} textColor={"gray.600"} fontWeight={600}>
+              {`${filters.filter((i) => i.isSelected === true).length}`}
+            </Text>
+            {"out of "}
+            <Text as={"span"} px={1} textColor={"gray.600"} fontWeight={600}>
+              {`${filters.length}`}
+            </Text>
+          </Text>
         </ModalFooter>
       </ModalContent>
     </Modal>
