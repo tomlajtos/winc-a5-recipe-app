@@ -133,15 +133,15 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
           <Button
             variant={"ghost"}
             colorScheme={"purple"}
-            text={`filter results (${
-              filterTerms.filter((t) => t.length).length
-            }/${filters.length})`}
+            text={"filter results"}
             onClick={onOpen}
           />
           <Button
             variant={"ghost"}
             colorScheme={"purple"}
-            text={"clear all filters"}
+            text={`clear all filters (${
+              filterTerms.filter((t) => t.length).length
+            }/${filters.length})`}
             onClick={() => {
               setFilters(initialFilters);
               setFilterTerms([]);
