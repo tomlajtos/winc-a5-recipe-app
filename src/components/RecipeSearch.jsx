@@ -1,39 +1,20 @@
 import { useState } from "react";
-import {
-  Checkbox,
-  CheckboxGroup,
-  Flex,
-  Icon,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Stack,
-  useDisclosure,
-} from "@chakra-ui/react";
-import { TbHeart, TbHeartOff, TbHeartBroken } from "react-icons/tb";
+import { Flex, Stack, useDisclosure } from "@chakra-ui/react";
 import { RecipeList } from "./RecipeList";
 import { SearchInput } from "./ui/SearchInput";
 import { Button } from "./ui/Button";
-console.clear();
+import { FilterModal } from "./ui/FilterModal";
+
 export const RecipeSearch = ({ recipes, handleClick }) => {
   const initialFilters = [
     { id: "vegan", value: "vegan", isSelected: false },
     { id: "vegetarian", value: "vegetarian", isSelected: false },
     { id: "pescatarian", value: "pescaterian", isSelected: false },
   ];
-
   const [searchField, setSearchField] = useState("");
   const [filters, setFilters] = useState(initialFilters);
   const [filterTerms, setFilterTerms] = useState([]);
-  console.log(filters);
-  console.log(filterTerms);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   // split user input in serchfield by below special characters and white-space,
   // hyphen is not included since it can be found in health labels.
   const searchTerms = searchField.split(/[\s,/\\]+/g);
@@ -56,8 +37,7 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
 
   const combineMatches = (matches) => {
     return matches
-      .sort((a, b) => a.length - b.lengt)
-
+      .sort((a, b) => a.length - b.length)
       .every((item) => item.length === recipes.length)
       ? matches[0]
       : matches
@@ -121,7 +101,7 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
   };
 
   const handleFilterChange = (e) => {
-    console.log(e.target.checked, e.target.id);
+    // console.log(e.target.checked, e.target.id);
     const newFilters = filters.map((filter) => {
       if (filter.id === e.target.id) {
         filter.isSelected = e.target.checked;
@@ -132,6 +112,13 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
     });
     setFilters(newFilters);
     console.log(newFilters);
+
+    const terms = filters.reduce(
+      (res, filter) => (filter.isSelected ? res.concat(filter.id) : res),
+      []
+    );
+    setFilterTerms(terms);
+    console.log(filterTerms);
   };
 
   return (
@@ -167,75 +154,12 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
           handleClick={handleClick}
         />
       </Flex>
-
-      <Modal onClose={onClose} isOpen={isOpen}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader textAlign={"center"} textTransform={"capitalize"} mt={2}>
-            {"filter recipes"}
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <CheckboxGroup colorScheme="white">
-              <Stack spacing={[1, 6]} direction={["column"]} pl={6}>
-                <Checkbox
-                  id={"vegan"}
-                  isChecked={filters[0].isSelected}
-                  spacing={4}
-                  borderColor={"gray.500"}
-                  iconColor="red"
-                  size={"lg"}
-                  onChange={(e) => handleFilterChange(e)}
-                >
-                  vegan
-                </Checkbox>
-                <Checkbox
-                  id="vegetarian"
-                  isChecked={filters[1].isSelected}
-                  spacing={4}
-                  borderColor={"gray.500"}
-                  iconColor="orange"
-                  size={"lg"}
-                  onChange={(e) => handleFilterChange(e)}
-                >
-                  vegetarian
-                </Checkbox>
-                <Checkbox
-                  id="pescatarian"
-                  isChecked={filters[2].isSelected}
-                  spacing={4}
-                  borderColor={"gray.500"}
-                  iconColor="black"
-                  size={"lg"}
-                  onChange={(e) => handleFilterChange(e)}
-                >
-                  pescatarian
-                </Checkbox>
-              </Stack>
-            </CheckboxGroup>
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              mx={"auto"}
-              variant={"outline"}
-              colorScheme={"purple"}
-              text={"apply filters"}
-              alignSelf={"center"}
-              w={"60%"}
-              my={4}
-              onClick={() => {
-                const terms = filters.reduce(
-                  (res, filter) =>
-                    filter.isSelected ? res.concat(filter.id) : res,
-                  []
-                );
-                setFilterTerms(terms);
-                console.log("button:", filterTerms, terms);
-              }}
-            />
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <FilterModal
+        isOpen={isOpen}
+        onClose={onClose}
+        filters={filters}
+        handleFilterChange={handleFilterChange}
+      />
     </>
   );
 };
