@@ -3,7 +3,7 @@ import { Flex, Stack, useDisclosure } from "@chakra-ui/react";
 import { RecipeList } from "./RecipeList";
 import { SearchInput } from "./ui/SearchInput";
 import { Button } from "./ui/Button";
-import { FilterModal } from "./ui/FilterModal";
+import { FilterModal } from "./FilterModal";
 
 export const RecipeSearch = ({ recipes, handleClick }) => {
   const initialFilters = [

@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { TbHeart, TbHeartOff, TbHeartBroken } from "react-icons/tb";
-import { ButtonCheckbox } from "./ButtonCheckbox";
+import { ButtonCheckbox } from "./ui/ButtonCheckbox";
 
 export const FilterModal = ({
   onClose,
