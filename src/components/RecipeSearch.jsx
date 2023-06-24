@@ -35,6 +35,12 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
     );
   };
 
+  const sortRecipesByTitle = (objArr) => {
+    return objArr.sort((a, b) =>
+      a.label > b.label ? 1 : a.label < b.label ? -1 : 0
+    );
+  };
+
   const combineMatches = (matches) => {
     return matches
       .sort((a, b) => a.length - b.length)
@@ -50,21 +56,20 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
               : recipe.label !== arr[index + 1].label
           );
   };
-
   const filterBySimpleTerms = (terms, recipes) => {
     const matches = terms.map((term) => filterRecipes(recipes, term));
-    return terms.length ? combineMatches(matches) : recipes;
+    return terms.length ? combineMatches(matches) : sortRecipesByTitle(recipes);
   };
 
   const filterByComplexTerms = (terms, recipes) => {
-    let matches = [...recipes];
-    terms.map((term) => {
-      matches = matches.filter(
-        (recipe) =>
-          isMatchingLabel(recipe, term) || isMatchingHealthLabel(recipe, term)
-      );
-    });
-    return matches;
+    // temp solution >>future>> try recursive map to add feat for searching for multiple complex terms individually
+    const filterC = (termArr) => {
+      let matches = [...recipes];
+      termArr.map((term) => (matches = filterRecipes(matches, term)));
+      return matches;
+    };
+    // console.log([["vegan+asil"], ["cake+cheese"]].map(filterC, terms));
+    return filterC(terms);
   };
 
   // return matching recipes from search and/or filter
@@ -73,10 +78,14 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
     const simpleTerms = searchTerms.filter((term) => !term.includes("+"));
     const complexTerms = searchTerms
       .filter((term) => term.includes("+"))
+      // .map(
+      //   (term) => term.split("+")
+      // term
       .reduce(
         (res, item, _i, arr) =>
           arr.length ? res.concat(item.split("+")) : res,
         []
+        // )
       );
 
     const complexSearchMatches = filterByComplexTerms(complexTerms, recipes);
