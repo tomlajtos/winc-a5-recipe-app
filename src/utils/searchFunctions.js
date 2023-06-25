@@ -1,25 +1,25 @@
-export const isMatchingLabel = (recipe, term) =>
+const isMatchingLabel = (recipe, term) =>
   recipe.label.toLowerCase().includes(term.toLowerCase());
 
-export const isMatchingHealthLabel = (recipe, term) =>
+const isMatchingHealthLabel = (recipe, term) =>
   recipe.healthLabels
     .map((label) => label.toLowerCase())
     .includes(term.toLowerCase());
 
-export const filterRecipes = (recipes, term) => {
+const filterRecipes = (recipes, term) => {
   return recipes.filter(
     (recipe) =>
       isMatchingLabel(recipe, term) || isMatchingHealthLabel(recipe, term)
   );
 };
 
-export const sortRecipesByTitle = (objArr) => {
+const sortRecipesByTitle = (objArr) => {
   return objArr.sort((a, b) =>
     a.label > b.label ? 1 : a.label < b.label ? -1 : 0
   );
 };
 
-export const combineMatches = (recipes, matches) => {
+const combineMatches = (recipes, matches) => {
   // sort combined arrays
   return (
     sortRecipesByTitle(
@@ -46,7 +46,7 @@ export const combineMatches = (recipes, matches) => {
 };
 
 // filter recipes by individula serch terms, result is the combination of all the separate results
-export const filterBySimpleTerms = (terms, recipes) => {
+const filterBySimpleTerms = (terms, recipes) => {
   const matches = terms.map((term) => filterRecipes(recipes, term));
   return terms.length
     ? combineMatches(recipes, matches)
@@ -54,7 +54,7 @@ export const filterBySimpleTerms = (terms, recipes) => {
 };
 
 // filter out results for complex search terms, can be multiple complex terms separated by comma
-export const filterByComplexTerms = (terms, recipes) => {
+const filterByComplexTerms = (terms, recipes) => {
   const mapTerms = (terms) => {
     let matches = [...recipes];
 
