@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   CheckboxGroup,
   Modal,
@@ -11,7 +10,6 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { TbHeart, TbHeartOff, TbHeartBroken } from "react-icons/tb";
 import { ButtonCheckbox } from "./ui/ButtonCheckbox";
 
 export const FilterModal = ({
@@ -41,7 +39,7 @@ export const FilterModal = ({
                 onChange={handleFilterChange}
                 index={0}
                 id={"vegan"}
-                icon={TbHeart}
+                icon={"heart"}
                 color={"green"}
               />
               <ButtonCheckbox
@@ -49,7 +47,7 @@ export const FilterModal = ({
                 onChange={handleFilterChange}
                 index={1}
                 id={"vegetarian"}
-                icon={TbHeartOff}
+                icon={"heart-off"}
                 color={"yellow"}
               />
               <ButtonCheckbox
@@ -57,7 +55,7 @@ export const FilterModal = ({
                 onChange={handleFilterChange}
                 index={2}
                 id={"pescatarian"}
-                icon={TbHeartBroken}
+                icon={"heart-broken"}
                 color={"blue"}
               />
             </Stack>

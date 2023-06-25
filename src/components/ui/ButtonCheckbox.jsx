@@ -1,5 +1,6 @@
 import { Center, Checkbox, Icon } from "@chakra-ui/react";
 import { Button } from "./Button";
+import { CustomCheckboxIcon } from "./CustomCheckboxIcon";
 
 export const ButtonCheckbox = ({
   filters,
@@ -25,8 +26,8 @@ export const ButtonCheckbox = ({
         aria-label={`filter for ${id}`}
         text={filters[index].id}
         icon={
-          <Icon
-            as={icon}
+          <CustomCheckboxIcon
+            icon={icon}
             boxSize={"30px"}
             pr={2}
             borderRight={"1px solid"}
