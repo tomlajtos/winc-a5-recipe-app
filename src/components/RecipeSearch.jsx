@@ -4,6 +4,7 @@ import { RecipeList } from "./RecipeList";
 import { SearchInput } from "./ui/SearchInput";
 import { Button } from "./ui/Button";
 import { FilterModal } from "./FilterModal";
+import { findMatchingRecipes } from "../utils/searchFunctions";
 
 export const RecipeSearch = ({ recipes, handleClick }) => {
   const initialFilters = [
@@ -19,98 +20,17 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
   // hyphen is not included since it can be found in health labels.
   const searchTerms = searchField.split(/[\s,/\\]+/g);
 
-  // helper functions to check for matches in recipe label(title) and health labels
-  const isMatchingLabel = (recipe, term) =>
-    recipe.label.toLowerCase().includes(term.toLowerCase());
-
-  const isMatchingHealthLabel = (recipe, term) =>
-    recipe.healthLabels
-      .map((label) => label.toLowerCase())
-      .includes(term.toLowerCase());
-
-  const filterRecipes = (recipes, term) => {
-    return recipes.filter(
-      (recipe) =>
-        isMatchingLabel(recipe, term) || isMatchingHealthLabel(recipe, term)
-    );
-  };
-
-  const sortRecipesByTitle = (objArr) => {
-    return objArr.sort((a, b) =>
-      a.label > b.label ? 1 : a.label < b.label ? -1 : 0
-    );
-  };
-
-  const combineMatches = (matches) => {
-    return matches
-      .sort((a, b) => a.length - b.length)
-      .every((item) => item.length === recipes.length)
-      ? matches[0]
-      : matches
-          .filter((item) => item.length < recipes.length)
-          .reduce((res, item) => res.concat(item), [])
-          .sort((a, b) => (a.label > b.label ? 1 : a.label < b.label ? -1 : 0))
-          .filter((recipe, index, arr) =>
-            arr.length === index + 1
-              ? recipe
-              : recipe.label !== arr[index + 1].label
-          );
-  };
-  const filterBySimpleTerms = (terms, recipes) => {
-    const matches = terms.map((term) => filterRecipes(recipes, term));
-    return terms.length ? combineMatches(matches) : sortRecipesByTitle(recipes);
-  };
-
-  const filterByComplexTerms = (terms, recipes) => {
-    // temp solution >>future>> try recursive map to add feat for searching for multiple complex terms individually
-    const filterC = (termArr) => {
-      let matches = [...recipes];
-      termArr.map((term) => (matches = filterRecipes(matches, term)));
-      return matches;
-    };
-    // console.log([["vegan+asil"], ["cake+cheese"]].map(filterC, terms));
-    return filterC(terms);
-  };
-
-  // return matching recipes from search and/or filter
-  const findMatchingRecipes = (recipes, searchTerms = []) => {
-    // const findMatchingRecipes = (recipes, searchTerms = [], filterTerms = []) => {
-    const simpleTerms = searchTerms.filter((term) => !term.includes("+"));
-    const complexTerms = searchTerms
-      .filter((term) => term.includes("+"))
-      // .map(
-      //   (term) => term.split("+")
-      // term
-      .reduce(
-        (res, item, _i, arr) =>
-          arr.length ? res.concat(item.split("+")) : res,
-        []
-        // )
-      );
-
-    const complexSearchMatches = filterByComplexTerms(complexTerms, recipes);
-    const simpleSearchMatches = filterBySimpleTerms(simpleTerms, recipes);
-    const combinedSearchMatches = combineMatches([
-      complexSearchMatches,
-      simpleSearchMatches,
-    ]);
-
-    const filteredMatches = filterBySimpleTerms(
-      filterTerms,
-      combinedSearchMatches
-    );
-
-    return filteredMatches;
-  };
-
+  // handle searchField change
   const handleChange = (event) => setSearchField(event.target.value);
+
+  // reset search field to empty string when custom clear button is clicked
   const handleSearchClear = () => {
     document.getElementById("searchInput").value = "";
     setSearchField("");
   };
 
+  // handle filter chekbox selection/deselection
   const handleFilterChange = (e) => {
-    // console.log(e.target.checked, e.target.id);
     const newFilters = filters.map((filter) => {
       if (filter.id === e.target.id) {
         filter.isSelected = e.target.checked;
@@ -120,14 +40,12 @@ export const RecipeSearch = ({ recipes, handleClick }) => {
       }
     });
     setFilters(newFilters);
-    console.log(newFilters);
 
     const terms = filters.reduce(
       (res, filter) => (filter.isSelected ? res.concat(filter.id) : res),
       []
     );
     setFilterTerms(terms);
-    console.log(filterTerms);
   };
 
   return (
