@@ -19,9 +19,9 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
         maxW={"fit-content"}
         label={
           <Text w={[220, 250, 500]} px={1} py={2}>
-            {
-              "Search in recipe titles and health labels. I.e.: 'a, b,...' will show resaults for each OR 'A+B+...' will show results that incluedes both OR combine the methods like 'a+b, A+B, 1, 2'"
-            }
+            {`Search in recipe titles and health labels. I.e.: 'a, b,...'
+              will show resaults for each OR 'A+B+...' will show results that incluedes both
+              OR combine the methods like 'a+b, A+B, 1, 2'`}
           </Text>
         }
         aria-label={"search field tooltip"}
