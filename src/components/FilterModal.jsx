@@ -10,7 +10,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { ButtonCheckbox } from "./ui/ButtonCheckbox";
+import { CustomCheckbox } from "./ui/CustomCheckbox";
 
 export const FilterModal = ({
   onClose,
@@ -34,7 +34,7 @@ export const FilterModal = ({
               align={"center"}
               textAlign={"center"}
             >
-              <ButtonCheckbox
+              <CustomCheckbox
                 filters={filters}
                 onChange={handleFilterChange}
                 index={0}
@@ -42,7 +42,7 @@ export const FilterModal = ({
                 icon={"heart"}
                 color={"green"}
               />
-              <ButtonCheckbox
+              <CustomCheckbox
                 filters={filters}
                 onChange={handleFilterChange}
                 index={1}
@@ -50,7 +50,7 @@ export const FilterModal = ({
                 icon={"heart-off"}
                 color={"yellow"}
               />
-              <ButtonCheckbox
+              <CustomCheckbox
                 filters={filters}
                 onChange={handleFilterChange}
                 index={2}
