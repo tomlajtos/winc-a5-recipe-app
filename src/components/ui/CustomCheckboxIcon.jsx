@@ -39,17 +39,12 @@ export function CustomCheckboxIcon(props) {
     <>
       {isChecked ? (
         <Icon viewBox="0 0 24 24" {...rest}>
-          <path
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={"1.5"}
-            d={d[0]}
-          />
+          <path fill="none" stroke="currentColor" strokeWidth={"2"} d={d[0]} />
           {icon !== "heart" && (
             <path
               fill="none"
               stroke="currentColor"
-              strokeWidth={"1.5"}
+              strokeWidth={"2"}
               d={d[1]}
             />
           )}

@@ -10,13 +10,16 @@ export const ButtonCheckbox = ({
   icon,
   color,
 }) => {
+  const mainColor = `${color}.200`;
+  const contentColor = `${color}.700`;
+  const borderColor = `${color}.600`;
   return (
     <Center
       size={""}
       border={"2px solid"}
       borderRadius={"xl"}
-      borderColor={`${color}.600`}
-      bg={`${color}.100`}
+      borderColor={borderColor}
+      bg={mainColor}
     >
       <Button
         as={Checkbox}
@@ -33,7 +36,8 @@ export const ButtonCheckbox = ({
             alignItems={"center"}
             justifyContent={"center"}
             borderLeft={"1px solid"}
-            borderColor={`${color}.300`}
+            borderColor={borderColor}
+            textColor={contentColor}
           >
             {filters[index].id}
           </Text>
@@ -45,23 +49,21 @@ export const ButtonCheckbox = ({
         gridTemplateColumns={"20px 110px"}
         gridTemplateRows={"1fr"}
         justifyItems={"stretch"}
-        bg={`${color}.100`}
-        textColor={`${color}.900`}
-        borderColor={"transparent"}
+        bg={mainColor}
+        borderColor={mainColor}
         borderRadius={"lg"}
-        iconColor={`${color}.100`}
+        iconColor={contentColor}
         _hover={{
-          bg: `${color}.100`,
-          borderColor: "transparent",
+          bg: mainColor,
+          borderColor: mainColor,
         }}
-        _focus={{
-          bg: "transparent",
-          borderColor: "transparent",
+        _active={{
+          bg: mainColor,
+          borderColor: mainColor,
         }}
-        _checked={{
-          bg: `${color}.600`,
-          textColor: `${color}.200`,
-          borderColor: "transparent",
+        _selected={{
+          bg: mainColor,
+          borderColor: mainColor,
         }}
       />
     </Center>
