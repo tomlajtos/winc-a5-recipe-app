@@ -74,11 +74,16 @@ const filterByComplexTerms = (terms, recipes) => {
 };
 
 // return matching recipes from search and/or filter
-export const findMatchingRecipes = (
-  recipes,
-  searchTerms = [],
-  filterTerms = []
-) => {
+export const findMatchingRecipes = (recipes, searchField, filters) => {
+  // split user input in serchfield by below special characters and white-space,
+  // hyphen is not included since it can be found in health labels.
+  const searchTerms = searchField.split(/[\s,/\\]+/g);
+  // array of filter IDs <string>
+  const filterTerms = filters.reduce(
+    (res, filter) => (filter.isSelected ? res.concat(filter.id) : res),
+    []
+  );
+
   const simpleTerms = searchTerms.filter((term) => !term.includes("+"));
   const complexTerms = searchTerms
     .filter((term) => term.includes("+"))
