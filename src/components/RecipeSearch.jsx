@@ -29,6 +29,7 @@ export const RecipeSearch = ({
             variant={"ghost"}
             colorScheme={"purple"}
             text={"filter results"}
+            borderRadius={"xl"}
             onClick={onOpen}
           />
           <Button
@@ -37,6 +38,7 @@ export const RecipeSearch = ({
             text={`clear all filters (${
               filters.filter((i) => i.isSelected === true).length
             }/${filters.length})`}
+            borderRadius={"xl"}
             onClick={handleFilterClear}
           />
         </Stack>
