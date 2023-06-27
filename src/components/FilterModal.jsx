@@ -36,7 +36,7 @@ export const FilterModal = ({
             >
               <CustomCheckbox
                 filters={filters}
-                onChange={handleFilterChange}
+                handleFilterChange={handleFilterChange}
                 index={0}
                 id={"vegan"}
                 icon={"heart"}
@@ -44,7 +44,7 @@ export const FilterModal = ({
               />
               <CustomCheckbox
                 filters={filters}
-                onChange={handleFilterChange}
+                handleFilterChange={handleFilterChange}
                 index={1}
                 id={"vegetarian"}
                 icon={"heart-off"}
@@ -52,7 +52,7 @@ export const FilterModal = ({
               />
               <CustomCheckbox
                 filters={filters}
-                onChange={handleFilterChange}
+                handleFilterChange={handleFilterChange}
                 index={2}
                 id={"pescatarian"}
                 icon={"heart-broken"}

@@ -1,7 +1,16 @@
 import { Heading } from "@chakra-ui/react";
 import { RecipeSearch } from "../components/RecipeSearch";
 
-export const RecipeListPage = ({ recipes, handleClick }) => {
+export const RecipeListPage = ({
+  searchField,
+  filters,
+  matchingRecipes,
+  handleChange,
+  handleClick,
+  handleSearchClear,
+  handleFilterChange,
+  handleFilterClear,
+}) => {
   return (
     <>
       <Heading
@@ -17,7 +26,16 @@ export const RecipeListPage = ({ recipes, handleClick }) => {
       >
         {"recipe app"}
       </Heading>
-      <RecipeSearch recipes={recipes} handleClick={handleClick} />
+      <RecipeSearch
+        searchField={searchField}
+        filters={filters}
+        matchingRecipes={matchingRecipes}
+        handleChange={handleChange}
+        handleClick={handleClick}
+        handleSearchClear={handleSearchClear}
+        handleFilterChange={handleFilterChange}
+        handleFilterClear={handleFilterClear}
+      />
     </>
   );
 };

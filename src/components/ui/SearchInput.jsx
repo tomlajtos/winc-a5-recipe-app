@@ -8,7 +8,11 @@ import {
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { IconButton } from "./IconButton";
 
-export const SearchInput = ({ handleChange, handleClick, searchField }) => {
+export const SearchInput = ({
+  handleChange,
+  handleSearchClear,
+  searchField,
+}) => {
   return (
     <InputGroup
       display={"flex"}
@@ -34,8 +38,8 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
           }}
           borderRadius={["full", null, 6]}
           type={"search"}
-          id={"searchInput"}
           name={"q"}
+          value={searchField}
           variant={"outline"}
           mx={[1, 2, 4]}
           borderColor={"gray.400"}
@@ -60,7 +64,7 @@ export const SearchInput = ({ handleChange, handleClick, searchField }) => {
             _hover={{ bg: "transparent" }}
             _active={{ bg: "transparent" }}
             _focus={{ bg: "transparent" }}
-            handleClick={handleClick}
+            handleClick={handleSearchClear}
           />
         </InputRightElement>
       )}

@@ -3,7 +3,7 @@ import { CustomCheckboxIcon } from "./CustomCheckboxIcon";
 
 export const CustomCheckbox = ({
   filters,
-  onChange,
+  handleFilterChange,
   index,
   id,
   icon,
@@ -16,7 +16,7 @@ export const CustomCheckbox = ({
     <Checkbox
       id={id}
       isChecked={filters[index].isSelected}
-      onChange={(e) => onChange(e)}
+      onChange={handleFilterChange}
       aria-label={`filter for ${id}`}
       size={"xl"}
       w={180}
