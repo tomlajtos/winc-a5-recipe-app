@@ -113,7 +113,7 @@ export const filterRecipeInfo = function (info, specifiedInfo) {
           .filter((sI) => Object.keys(info).includes(sI))
           .map((sI) => info[sI]);
       } else {
-        return info;
+        return Object.keys(info).map((key) => info[key]);
       }
     }
   }
