@@ -40,8 +40,10 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
           <Thead>
             <Tr>
               <Th></Th>
-              <Th textColor={"gray.800"}>{" quantity "}</Th>
-              <Th isNumeric>{"unit"}</Th>
+              <Th textColor={"gray.800"} textAlign={"right"}>
+                {" quantity "}
+              </Th>
+              <Th>{"unit"}</Th>
             </Tr>
           </Thead>
           <Tbody>
