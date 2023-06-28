@@ -21,6 +21,10 @@ const filterCheck = definePartsStyle({
   control: defineStyle({
     rounded: "full",
     border: "none",
+    _focusVisible: {
+      boxShadow: "none",
+      WebkitTapHighlightColor: "transparent",
+    },
     _focus: { boxShadow: "none", WebkitTapHighlightColor: "transparent" },
   }),
   label: defineStyle({
