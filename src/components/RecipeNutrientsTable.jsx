@@ -7,12 +7,16 @@ import {
   Tr,
   Th,
   Td,
+  useDisclosure,
 } from "@chakra-ui/react";
+import { RecipeNutrientsModal } from "./RecipeNutrientsModal";
 import { betterKeyThenIndex, filterRecipeInfo } from "../utils/globalFunctions";
 
 import { Button } from "../components/ui/Button";
 
 export const RecipeNutrientsTable = ({ nutrients }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const showTableData = (recipeInfo) => {
     return recipeInfo.map(({ label, quantity, unit }, index) => (
       <Tr key={betterKeyThenIndex("nutr_", label, index)}>
@@ -24,22 +28,23 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
   };
 
   return (
-    <TableContainer
-      border={"1px"}
-      borderColor={"gray.300"}
-      borderRadius={"lg"}
-      p={2}
-      w={360}
-    >
-      <Table variant={"simple"}>
-        <Thead>
-          <Tr>
-            <Th></Th>
-            <Th textColor={"gray.800"}>{" quantity "}</Th>
-            <Th isNumeric>{"unit"}</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
+    <>
+      <TableContainer
+        border={"1px"}
+        borderColor={"gray.300"}
+        borderRadius={"lg"}
+        p={2}
+        w={360}
+      >
+        <Table variant={"simple"}>
+          <Thead>
+            <Tr>
+              <Th></Th>
+              <Th textColor={"gray.800"}>{" quantity "}</Th>
+              <Th isNumeric>{"unit"}</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
             {showTableData(
               filterRecipeInfo(nutrients, [
                 "ENERC_KCAL",
@@ -50,27 +55,29 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
                 "NA",
               ])
             )}
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th p={2}>
+                <Button
+                  handleClick={onOpen}
+                  variant={"link"}
+                  text={"show all nutrients"}
+                  pt={2}
+                  fontSize={12}
+                />
+              </Th>
+              <Th></Th>
+              <Th></Th>
             </Tr>
-          ))}
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th p={2}>
-              <Button
-                handleClick={() =>
-                  console.log("showing complete nutrients analitics")
-                }
-                variant={"link"}
-                text={"show all nutrients"}
-                pt={2}
-                fontSize={12}
-              />
-            </Th>
-            <Th></Th>
-            <Th></Th>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
+          </Tfoot>
+        </Table>
+      </TableContainer>
+      <RecipeNutrientsModal
+        onClose={onClose}
+        isOpen={isOpen}
+        tableData={showTableData(filterRecipeInfo(nutrients))}
+      />
+    </>
   );
 };
