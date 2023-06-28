@@ -13,6 +13,16 @@ import { betterKeyThenIndex, filterRecipeInfo } from "../utils/globalFunctions";
 import { Button } from "../components/ui/Button";
 
 export const RecipeNutrientsTable = ({ nutrients }) => {
+  const showTableData = (recipeInfo) => {
+    return recipeInfo.map(({ label, quantity, unit }, index) => (
+      <Tr key={betterKeyThenIndex("nutr_", label, index)}>
+        <Td maxWidth={"170px"}>{label} </Td>
+        <Td isNumeric>{Math.round(quantity)}</Td>
+        <Td>{unit}</Td>
+      </Tr>
+    ));
+  };
+
   return (
     <TableContainer
       border={"1px"}
@@ -30,18 +40,16 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {filterRecipeInfo(nutrients, [
-            "ENERC_KCAL",
-            "PROCNT",
-            "FAT",
-            "CHOCDF",
-            "CHOLE",
-            "NA",
-          ]).map(({ label, quantity, unit }, index) => (
-            <Tr key={betterKeyThenIndex("nutr_", label, index)}>
-              <Td>{label} </Td>
-              <Td isNumeric>{Math.round(quantity)}</Td>
-              <Td>{unit}</Td>
+            {showTableData(
+              filterRecipeInfo(nutrients, [
+                "ENERC_KCAL",
+                "PROCNT",
+                "FAT",
+                "CHOCDF",
+                "CHOLE",
+                "NA",
+              ])
+            )}
             </Tr>
           ))}
         </Tbody>
