@@ -43,7 +43,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
 
   /**
    * Prevents the use of previous scroll position, pos at the top when rendered
-   * A better solution is probably out of the scope of "react basics" */
+   * A better solution is probably out of the scope of "react basics" module*/
   const scrollToTopOnRender = () => {
     window.scrollTo({
       top: 0,
@@ -93,7 +93,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         rowGap={[6, null, 10]}
         columnGap={[0, null, 10, 16]}
       >
-        {/* container: quick info about dis/meal, cooking/prep time, serving size */}
+        {/* container: quick info about dish/meal, cooking/prep time, serving size */}
         <GridItem
           colStart={1}
           colEnd={2}
