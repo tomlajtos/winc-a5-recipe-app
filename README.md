@@ -37,4 +37,18 @@ Final project for React Basics module
 
 ## Extra Challenge
 
-- Users can filter on vegan,vegetarian, pescetarian options.
+- Users can filter on vegan,vegetarian, pescatarian options.
+
+## Features in addition to the assignment requirements:
+
+- Notification to point out conflicting information in recipe data: conflict between "cautions" and "health labels"
+  This shows up on the recipe card as well as in the recipe page with more details (conflicts originate from data file errors)
+- The app uses functions to make the recipe titles properly capitalized and it removes words that should not be part of the title
+- Cooking/preparation time is formatted in an hours and minutes format instead of minutes only
+- The recipe ingredients text is formatted to remove characters that do not belong
+- Search options (in recipe and/or health labels):
+  - search for multiple terms/keywords separated by space or comma will return combined results for each term
+  - to narrow down search, chain terms together with "+"
+  - possible to search for multiple chained terms, combined results for each chained input will be returned the same way as it is for single terms
+  - also possible to combine chained and single search terms
+- Recipe page shows nutrients in a table form which has a button to toggle a modal that shows all the nutrients data not just those described in the requirements
