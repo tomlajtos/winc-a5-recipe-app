@@ -1,5 +1,9 @@
-const isMatchingLabel = (recipe, term) =>
-  recipe.label.toLowerCase().includes(term.toLowerCase());
+/**
+ * Return recipes which have matching matching pattern(from search field) in their label(title)
+ */
+const isMatchingLabel = (recipe, term) => {
+  return recipe.label.toLowerCase().includes(term.toLowerCase());
+};
 
 const isMatchingHealthLabel = (recipe, term) =>
   recipe.healthLabels
@@ -13,14 +17,13 @@ const filterRecipes = (recipes, term) => {
   );
 };
 
-const sortRecipesByTitle = (objArr) => {
-  return objArr.sort((a, b) =>
+const sortRecipesByTitle = (recipes) => {
+  return recipes.sort((a, b) =>
     a.label > b.label ? 1 : a.label < b.label ? -1 : 0
   );
 };
 
 const combineMatches = (recipes, matches) => {
-  // sort combined arrays
   return (
     sortRecipesByTitle(
       // sort arrays by size and combine them
@@ -29,14 +32,15 @@ const combineMatches = (recipes, matches) => {
         .every((item) => {
           return item.length === recipes.length;
         })
-        ? // if all matches are the same as original array
-          matches[0]
+        ? // if all matches are the same as original recipes array
+          // matches[0]
+          recipes
         : // leave out matches that are the same as original
           matches
-            .filter((item) => item.length < recipes.length)
+            .filter((item) => item.length && item.length < recipes.length)
             .reduce((res, item) => res.concat(item), [])
     )
-      // remove duplicates from array
+      // remove duplicates from array - elemets needed to be sorted alphabetically first
       .filter((recipe, index, arr) =>
         arr.length === index + 1
           ? recipe
@@ -45,17 +49,28 @@ const combineMatches = (recipes, matches) => {
   );
 };
 
-// filter recipes by individula serch terms, result is the combination of all the separate results
+// filter recipes by individual serch terms, result is the combination of all the separate results
 const filterBySimpleTerms = (terms, recipes) => {
-  const matches = terms.map((term) => filterRecipes(recipes, term));
-  return terms.length
-    ? combineMatches(recipes, matches)
-    : sortRecipesByTitle(recipes);
+  if (!terms.length) {
+    return sortRecipesByTitle(recipes);
+  }
+
+  const matches = terms
+    .map((term) => filterRecipes(recipes, term))
+    // do not return empty arrays
+    .filter((i) => i.length);
+
+  return combineMatches(recipes, matches);
 };
 
-// filter out results for complex search terms, can be multiple complex terms separated by comma
+/**
+ * filter out results for complex search terms, can be multiple complex terms separated by comma
+ */
 const filterByComplexTerms = (terms, recipes) => {
-  const mapTerms = (terms) => {
+  if (!terms.length) {
+    return sortRecipesByTitle(recipes);
+  }
+  const mapViaTerms = (terms) => {
     let matches = [...recipes];
 
     terms.map((term) => {
@@ -64,20 +79,21 @@ const filterByComplexTerms = (terms, recipes) => {
     return matches;
   };
 
-  const mapNestedTs = (fn, [head, ...tail]) => {
-    return head === undefined ? [] : [...fn(head), ...mapNestedTs(fn, tail)];
+  const mapViaNestedTs = (fn, [head, ...tail]) => {
+    return head === undefined ? [] : [...fn(head), ...mapViaNestedTs(fn, tail)];
   };
 
-  return mapNestedTs(mapTerms, terms).length
-    ? mapNestedTs(mapTerms, terms)
-    : recipes;
+  return mapViaNestedTs(mapViaTerms, terms);
 };
 
-// return matching recipes from search and/or filter
+/**
+ * return matching recipes from search and/or filter
+ * */
 export const findMatchingRecipes = (recipes, searchField, filters) => {
   // split user input in serchfield by below special characters and white-space,
   // hyphen is not included since it can be found in health labels.
   const searchTerms = searchField.split(/[\s,/\\]+/g);
+
   // array of filter IDs <string>
   const filterTerms = filters.reduce(
     (res, filter) => (filter.isSelected ? res.concat(filter.id) : res),
@@ -85,19 +101,22 @@ export const findMatchingRecipes = (recipes, searchField, filters) => {
   );
 
   const simpleTerms = searchTerms.filter((term) => !term.includes("+"));
+
+  // allways a nested array
   const complexTerms = searchTerms
     .filter((term) => term.includes("+"))
     .map((term) => term.split("+"));
+
+  filters ? (recipes = filterBySimpleTerms(filterTerms, recipes)) : recipes;
+
   const complexSearchMatches = filterByComplexTerms(complexTerms, recipes);
+
   const simpleSearchMatches = filterBySimpleTerms(simpleTerms, recipes);
+
   const combinedSearchMatches = combineMatches(recipes, [
     complexSearchMatches,
     simpleSearchMatches,
   ]);
-  const filteredMatches = filterBySimpleTerms(
-    filterTerms,
-    combinedSearchMatches
-  );
 
-  return filteredMatches;
+  return combinedSearchMatches;
 };
