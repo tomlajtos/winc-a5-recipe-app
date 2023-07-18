@@ -6,9 +6,14 @@ import { RecipePage } from "./pages/RecipePage";
 import { SourceLink } from "./components/SourceLink";
 
 import { data } from "./utils/data";
-import { findMatchingRecipes } from "./utils/searchFunctions";
+import {
+  findMatchingRecipes,
+  matchRecipesToFilters,
+} from "./utils/searchFunctions";
 
 function App() {
+  console.clear();
+  console.log("APP IS RENDERED");
   const recipes = data.hits.map((hit) => hit.recipe);
   const initialFilters = [
     { id: "vegan", value: "vegan", isSelected: false },
@@ -20,8 +25,13 @@ function App() {
   const [searchField, setSearchField] = useState("");
   const [filters, setFilters] = useState(initialFilters);
 
+  // return matching recipes when filters applied, or original recipes array when none is applied
+  const filteredRecipes = matchRecipesToFilters(recipes, filters);
+
   // for RecipeList component
-  const matchingRecipes = findMatchingRecipes(recipes, searchField, filters);
+  const matchingRecipes = searchField
+    ? findMatchingRecipes(filteredRecipes, searchField, filters)
+    : filteredRecipes;
 
   // handle searchField change
   const handleChange = (event) => setSearchField(event.target.value);
