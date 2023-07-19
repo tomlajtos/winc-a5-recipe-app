@@ -2,6 +2,7 @@ import { Flex, Stack, useDisclosure } from "@chakra-ui/react";
 import { RecipeList } from "./RecipeList";
 import { SearchInput } from "./ui/SearchInput";
 import { Button } from "./ui/Button";
+import { NoMatchWarning } from "./NoMatchWarning";
 import { FilterModal } from "./FilterModal";
 
 export const RecipeSearch = ({
@@ -24,7 +25,10 @@ export const RecipeSearch = ({
           handleSearchClear={handleSearchClear}
           searchField={searchField}
         />
+
+        {/* buttons for filtering */}
         <Stack direction={["column", "row"]}>
+          {/* open FilterModal */}
           <Button
             variant={"ghost"}
             colorScheme={"purple"}
@@ -32,6 +36,8 @@ export const RecipeSearch = ({
             borderRadius={"xl"}
             onClick={onOpen}
           />
+          {/* clear all filters,
+          also shows the number of selected filters in realation to the number of filters available */}
           <Button
             variant={"ghost"}
             colorScheme={"purple"}
@@ -43,8 +49,13 @@ export const RecipeSearch = ({
           />
         </Stack>
 
-        <RecipeList recipes={matchingRecipes} handleClick={handleClick} />
+        {matchingRecipes.length ? (
+          <RecipeList recipes={matchingRecipes} handleClick={handleClick} />
+        ) : (
+          <NoMatchWarning />
+        )}
       </Flex>
+
       <FilterModal
         isOpen={isOpen}
         onClose={onClose}
