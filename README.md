@@ -1,6 +1,7 @@
 # Recipe App
 
 Final project for React Basics module
+[Deployed build on Netlify](https://wrapptl.netlify.app/)
 
 ## Requirements:
 
