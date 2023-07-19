@@ -11,17 +11,20 @@ import {
   Text,
   WrapItem,
 } from "@chakra-ui/react";
+
 import { TbReportAnalytics } from "react-icons/tb";
 import { TbPlant2 } from "react-icons/tb";
 import { TbExclamationCircle } from "react-icons/tb";
+
+import { CautionsWarning } from "./CautionsWarning";
+import { RecipeInfoTagGroup } from "./RecipeInfoTagGroup";
+
 import {
   fixLabel,
   generateKeyPrefix,
   filterRecipeInfo,
   findDataConflicts,
 } from "../utils/globalFunctions";
-import { CautionsWarning } from "./CautionsWarning";
-import { RecipeInfoTagGroup } from "./RecipeInfoTagGroup";
 
 export const RecipeCard = ({ recipe, handleClick }) => {
   const {
@@ -33,6 +36,7 @@ export const RecipeCard = ({ recipe, handleClick }) => {
     dietLabels,
     cautions,
   } = recipe;
+
   return (
     <WrapItem
       boxShadow={"lg"}
@@ -96,6 +100,7 @@ export const RecipeCard = ({ recipe, handleClick }) => {
           flexDir={"column"}
           rowGap={2}
         >
+          {/* info on meal and dish type */}
           <Flex direction={"column"} h={"fit-content"} rowGap={1}>
             <Center>
               <Text
@@ -117,6 +122,7 @@ export const RecipeCard = ({ recipe, handleClick }) => {
               </Text>
             </Center>
           </Flex>
+
           <Divider borderColor={"gray.400"} />
 
           {/* label tags */}

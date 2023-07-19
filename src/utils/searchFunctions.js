@@ -27,24 +27,20 @@ const isMatchingHealthLabel = (recipe, term) =>
  * @param {string} term
  * @returns {array<object>} recipes-filtered
  */
-const filterRecipes = (recipes, term) => {
-  return recipes.filter(
+const filterRecipes = (recipes, term) =>
+  recipes.filter(
     (recipe) =>
       isMatchingLabel(recipe, term) || isMatchingHealthLabel(recipe, term)
   );
-};
 
 /**
  * Sort recipes alpahabetically by their title
  *
  * @param {array<object>} recipes
  * @returns {array<object>} recipes-sorted
- * */
-const sortRecipesByTitle = (recipes) => {
-  return recipes.sort((a, b) =>
-    a.label > b.label ? 1 : a.label < b.label ? -1 : 0
-  );
-};
+ */
+const sortRecipesByTitle = (recipes) =>
+  recipes.sort((a, b) => (a.label > b.label ? 1 : a.label < b.label ? -1 : 0));
 
 /**
  * Flatten a nested array comprising the results of different searches (matched recipes)
@@ -53,31 +49,26 @@ const sortRecipesByTitle = (recipes) => {
  * @param {array<object>} recipes
  * @param {array<array(object)>} matches
  * @returns {array<object>} matches-combined
- * */
-const combineMatches = (recipes, matches) => {
-  return (
-    sortRecipesByTitle(
-      // sort arrays by size and combine them
-      matches
-        .sort((a, b) => a.length - b.length)
-        .every((item) => {
-          return item.length === recipes.length;
-        })
-        ? // if all matches are the same as original recipes array, return original
-          recipes
-        : // leave out matches that are the same as original
-          matches
-            .filter((item) => item.length && item.length < recipes.length)
-            .reduce((res, item) => res.concat(item), [])
-    )
-      // remove duplicates from array - elemets needed to be sorted alphabetically first
-      .filter((recipe, index, arr) =>
-        arr.length === index + 1
-          ? recipe
-          : recipe.label !== arr[index + 1].label
-      )
-  );
-};
+ */
+const combineMatches = (recipes, matches) =>
+  sortRecipesByTitle(
+    // sort arrays by size and combine them
+    matches
+      .sort((a, b) => a.length - b.length)
+      .every((item) => {
+        return item.length === recipes.length;
+      })
+      ? // if all matches are the same as original recipes array, return original
+        recipes
+      : // leave out matches that are the same as original
+        matches
+          .filter((item) => item.length && item.length < recipes.length)
+          .reduce((res, item) => res.concat(item), [])
+  )
+    // remove duplicates from array - elemets needed to be sorted alphabetically first
+    .filter((recipe, index, arr) =>
+      arr.length === index + 1 ? recipe : recipe.label !== arr[index + 1].label
+    );
 
 /**
  * Filter recipes by individual serch terms, the result is the combination of all the separate results
@@ -127,7 +118,7 @@ const filterByComplexTerms = (terms, recipes) => {
  * @param {array<object>} recipes
  * @param {string} searchField
  * @returns {array<object>} combinedSearchMatches
- * */
+ */
 const matchRecipesToSearch = (recipes, searchField) => {
   // split user input in serchfield by selected special characters and white-space,
   // hyphen is not included since it can be found in health labels.
@@ -159,7 +150,7 @@ const matchRecipesToSearch = (recipes, searchField) => {
  * @param {array<object>} recipes
  * @param {array<object>} filters
  * @returns {array<object>} recipes-filtered
- * */
+ */
 const matchRecipesToFilters = (recipes, filters) => {
   // array of filter IDs <string>
   const filterTerms = filters.reduce(

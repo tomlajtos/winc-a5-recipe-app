@@ -2,6 +2,9 @@ import { InputGroup, Input, InputRightElement } from "@chakra-ui/react";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { IconButton } from "./IconButton";
 
+/**
+ * Search input with custom button to clear the shearch field
+ */
 export const SearchInput = ({
   handleChange,
   handleSearchClear,
@@ -34,6 +37,7 @@ export const SearchInput = ({
         _focusWithin={{ bg: "gray.50" }}
         onChange={handleChange}
       />
+      {/* button to clear user input, if any */}
       {searchField && (
         <InputRightElement mr={6}>
           <IconButton

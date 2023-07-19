@@ -21,11 +21,14 @@ export const FilterModal = ({
   return (
     <Modal onClose={onClose} isOpen={isOpen} size={"xs"}>
       <ModalOverlay />
+
       <ModalContent>
         <ModalHeader textAlign={"center"} textTransform={"capitalize"} mt={2}>
           {"filter recipes"}
         </ModalHeader>
+
         <ModalCloseButton />
+
         <ModalBody>
           <CheckboxGroup colorScheme="transparent">
             <Stack
@@ -61,6 +64,7 @@ export const FilterModal = ({
             </Stack>
           </CheckboxGroup>
         </ModalBody>
+
         <ModalFooter justifyContent={"center"}>
           <Text textColor="gray.500">
             {"Selected filters:"}

@@ -9,7 +9,8 @@ import {
 
 /**
  * Shows an alert if there is conflict between cautions and health labels
- * It renders a compact format if compact prop is true - used in RecipeCard */
+ * It renders a compact format if compact prop is true - used in RecipeCard
+ */
 export const CautionsWarning = ({ errors, compact = false }) => {
   if (errors.length) {
     return compact ? (
@@ -46,6 +47,7 @@ export const CautionsWarning = ({ errors, compact = false }) => {
           bg={"red.50"}
           borderRadius={"full"}
         />
+
         <Wrap direction={"column"} spacing={0}>
           <AlertTitle
             mt={[4, 2]}
@@ -56,6 +58,7 @@ export const CautionsWarning = ({ errors, compact = false }) => {
           >
             {"attention"}
           </AlertTitle>
+
           <AlertDescription maxWidth={"100%"}>
             <Text color={"red.600"}>
               {"There is conflicting information between "}
@@ -78,7 +81,7 @@ export const CautionsWarning = ({ errors, compact = false }) => {
                   {item.toLowerCase() + "(s)"}
                 </Text>
                 <Text as={"span"} fontWeight={400}>
-                  {/* Add "." instead of "," if last/only-one item */}
+                  {/* Add "." instead of "," if last OR only-one item */}
                   {index + 1 === errors.length ? "." : ", "}
                 </Text>
               </Text>

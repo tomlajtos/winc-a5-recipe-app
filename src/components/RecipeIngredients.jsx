@@ -3,12 +3,11 @@ import { betterKeyThenIndex } from "../utils/globalFunctions";
 import { RecipeSubHeading } from "./RecipeSubHeading";
 
 export const RecipeIngredients = ({ ingredients }) => {
-  const formatText = function (text) {
-    return text
+  const formatText = (text) =>
+    text
       .match(/[^*]/g) //removes "*" from begining if ther is any
       .filter((_char, index, str) => str[index + 1] !== ";") //removes "space" from before ";"
       .join("");
-  };
 
   return (
     <Flex flexDir={"column"} maxW={360} alignItems={"start"} rowGap={2}>

@@ -1,8 +1,9 @@
 import { Flex, Stack, useDisclosure } from "@chakra-ui/react";
-import { RecipeList } from "./RecipeList";
+
 import { SearchInput } from "./ui/SearchInput";
 import { Button } from "./ui/Button";
 import { NoMatchWarning } from "./NoMatchWarning";
+import { RecipeList } from "./RecipeList";
 import { FilterModal } from "./FilterModal";
 
 export const RecipeSearch = ({
@@ -56,6 +57,7 @@ export const RecipeSearch = ({
         )}
       </Flex>
 
+      {/* modal with custom checkboxes to select filters */}
       <FilterModal
         isOpen={isOpen}
         onClose={onClose}

@@ -7,13 +7,11 @@ import { SourceLink } from "./components/SourceLink";
 
 import { data } from "./utils/data";
 import {
-  findMatchingRecipes,
+  matchRecipesToSearch,
   matchRecipesToFilters,
 } from "./utils/searchFunctions";
 
 function App() {
-  console.clear();
-  console.log("APP IS RENDERED");
   const recipes = data.hits.map((hit) => hit.recipe);
   const initialFilters = [
     { id: "vegan", value: "vegan", isSelected: false },
@@ -25,12 +23,12 @@ function App() {
   const [searchField, setSearchField] = useState("");
   const [filters, setFilters] = useState(initialFilters);
 
-  // return matching recipes when filters applied, or original recipes array when none is applied
+  // return matching recipes when filters applied, OR original recipes array when none is applied
   const filteredRecipes = matchRecipesToFilters(recipes, filters);
 
-  // for RecipeList component
+  // for RecipeList component as prop value
   const matchingRecipes = searchField
-    ? findMatchingRecipes(filteredRecipes, searchField, filters)
+    ? matchRecipesToSearch(filteredRecipes, searchField, filters)
     : filteredRecipes;
 
   // handle searchField change
@@ -40,6 +38,7 @@ function App() {
   const handleSearchClear = () => {
     setSearchField("");
   };
+
   // handle filter chekbox selection/deselection
   const handleFilterChange = (e) => {
     const newFilters = filters.map((filter) => {
@@ -53,6 +52,7 @@ function App() {
     setFilters(newFilters);
   };
 
+  // handle clear-all-filters button click
   const handleFilterClear = () => {
     setFilters(initialFilters);
   };

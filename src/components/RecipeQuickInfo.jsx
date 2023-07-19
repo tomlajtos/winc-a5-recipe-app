@@ -1,10 +1,11 @@
-//TODO: add no serving size provided statement
 import { Divider, Icon, Wrap, WrapItem, Stack, Text } from "@chakra-ui/react";
 import { TbClock } from "react-icons/tb";
 import { TbBowl } from "react-icons/tb";
 import { TbUser } from "react-icons/tb";
-import { filterRecipeInfo, formatTimeInfo } from "../utils/globalFunctions";
+
 import { NoInfoNote } from "./NoInfoNote";
+
+import { filterRecipeInfo, formatTimeInfo } from "../utils/globalFunctions";
 
 export const RecipeQuickInfo = ({
   mealType,
@@ -14,6 +15,7 @@ export const RecipeQuickInfo = ({
 }) => {
   return (
     <Stack spacing={3}>
+      {/* info on mealtype and dishtype with icon */}
       <Wrap maxW={360} justifyItems={"start"}>
         <WrapItem>
           <Icon verticalAlign={"start"} as={TbBowl} boxSize={"1.75rem"} />
@@ -52,6 +54,8 @@ export const RecipeQuickInfo = ({
           </Text>
         </WrapItem>
       </Wrap>
+
+      {/* info on cooking/prep time with icon */}
       <Wrap maxW={360} alignItems={"start"}>
         <Icon as={TbClock} boxSize={"1.5rem"} />
         {!filterRecipeInfo(totalTime) ? (
@@ -60,6 +64,8 @@ export const RecipeQuickInfo = ({
           <Text fontSize={"lg"}>{formatTimeInfo(totalTime)}</Text>
         )}
       </Wrap>
+
+      {/* info on portion/serving-size with icon */}
       <Wrap maxW={360} alignItems={"start"} p>
         <Icon as={TbUser} boxSize={"1.5rem"} />
         <Text fontSize={"lg"} textColor={"gray.700"}>

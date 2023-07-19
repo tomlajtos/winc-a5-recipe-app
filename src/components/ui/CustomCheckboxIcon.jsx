@@ -1,10 +1,9 @@
-//TODO: add the other two icons
 import { Icon } from "@chakra-ui/react";
 export function CustomCheckboxIcon(props) {
   const { icon, isIndeterminate, isChecked, ...rest } = props;
 
   // prop. "d" in icon path, depending on icon-name, ICONS are from: https://tablericons.com
-  // it is an array to hold data for icons with more than one paths
+  // it is an array to hold data for icons with more than one path
   let d = "";
   switch (icon) {
     case "heart":
@@ -53,4 +52,3 @@ export function CustomCheckboxIcon(props) {
     </>
   );
 }
-//null

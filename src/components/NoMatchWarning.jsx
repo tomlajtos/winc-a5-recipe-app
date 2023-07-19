@@ -1,8 +1,8 @@
-import { Alert, AlertIcon, AlertDescription } from "@chakra-ui/react";
+import { Alert, AlertDescription } from "@chakra-ui/react";
 
 /**
  * Shows a message if there is no recipe that matches the search input
- * */
+ */
 export const NoMatchWarning = () => {
   return (
     <Alert

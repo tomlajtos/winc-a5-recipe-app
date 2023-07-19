@@ -15,15 +15,21 @@ import {
   Th,
 } from "@chakra-ui/react";
 
+/**
+ * Modal to show the complete list of nutrients in the dish
+ */
 export const RecipeNutrientsModal = ({ onClose, isOpen, tableData }) => {
   return (
     <Modal onClose={onClose} isOpen={isOpen} portalProps={{ my: 0 }}>
       <ModalOverlay />
+
       <ModalContent>
         <ModalHeader textAlign={"center"} textTransform={"capitalize"} mt={2}>
           {"complete nutrient information"}
         </ModalHeader>
+
         <ModalCloseButton />
+
         <ModalBody px={[0, null, 6]} overflowX={"auto"}>
           <TableContainer
             border={"1px"}
@@ -56,6 +62,7 @@ export const RecipeNutrientsModal = ({ onClose, isOpen, tableData }) => {
             </Table>
           </TableContainer>
         </ModalBody>
+
         <ModalFooter justifyContent={"center"}></ModalFooter>
       </ModalContent>
     </Modal>

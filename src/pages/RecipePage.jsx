@@ -43,7 +43,8 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
 
   /**
    * Prevents the use of previous scroll position, pos at the top when rendered
-   * A better solution is probably out of the scope of "react basics" module*/
+   * A better solution is probably out of the scope of "react basics" module
+   */
   const scrollToTopOnRender = () => {
     window.scrollTo({
       top: 0,
@@ -73,6 +74,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
         top={0}
         left={0}
       />
+
       <Heading
         fontSize={["1.75rem", "2rem", "3rem"]}
         textAlign={"center"}
@@ -82,8 +84,10 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
       >
         {fixLabel(label)}
       </Heading>
+
       {/* alert if applies */}
       <CautionsWarning errors={findDataConflicts(recipe)} />
+
       {/* recipe details */}
       <Grid
         templateColumns={["1fr", "1fr", "repeat(2,max-content)"]}
@@ -136,6 +140,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
                 <NoInfoNote category={"health labels"} />
               )}
             </Flex>
+
             {/* tag group for diet labels */}
             <Flex flexDir={"column"} alignItems={"start"} rowGap={2}>
               <RecipeSubHeading text={"diet labels"} />
@@ -150,6 +155,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
                 <NoInfoNote category={"diet labels"} />
               )}
             </Flex>
+
             {/* tag group for cautions */}
             <Flex flexDir={"column"} alignItems={"start"} rowGap={2}>
               <RecipeSubHeading text={"cautions"} />
@@ -181,6 +187,7 @@ export const RecipePage = ({ recipe, handleButtonClick }) => {
           </Flex>
         </GridItem>
       </Grid>
+
       {/* button for going back to all recipes */}
       <IconButton
         handleClick={handleClick}

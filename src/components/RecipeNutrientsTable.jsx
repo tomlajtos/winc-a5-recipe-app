@@ -9,10 +9,11 @@ import {
   Td,
   useDisclosure,
 } from "@chakra-ui/react";
-import { RecipeNutrientsModal } from "./RecipeNutrientsModal";
-import { betterKeyThenIndex, filterRecipeInfo } from "../utils/globalFunctions";
 
+import { RecipeNutrientsModal } from "./RecipeNutrientsModal";
 import { Button } from "../components/ui/Button";
+
+import { betterKeyThenIndex, filterRecipeInfo } from "../utils/globalFunctions";
 
 export const RecipeNutrientsTable = ({ nutrients }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,6 +76,8 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
           </Tfoot>
         </Table>
       </TableContainer>
+
+      {/* show all nutrients */}
       <RecipeNutrientsModal
         onClose={onClose}
         isOpen={isOpen}
