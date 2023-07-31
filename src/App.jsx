@@ -43,8 +43,9 @@ function App() {
   const handleFilterChange = (e) => {
     const newFilters = filters.map((filter) => {
       if (filter.id === e.target.id) {
-        filter.isSelected = e.target.checked;
-        return filter;
+        // filter.isSelected = e.target.checked;
+        // return filter;
+        return { ...filter, isSelected: e.target.checked };
       } else {
         return filter;
       }
