@@ -49,7 +49,7 @@ export const fixLabel = (label) => {
  * @param {number} index of item
  * @returns {string} a hoppefully uniqe string that can be used as a key prop of a React component
  */
-export const betterKeyThenIndex = (prefix, uniqueVal, index) => {
+export const generateUniqueKey = (prefix, uniqueVal, index) => {
   const str = uniqueVal.toString().includes("object")
     ? Object.keys(uniqueVal).join("")
     : uniqueVal.toString();

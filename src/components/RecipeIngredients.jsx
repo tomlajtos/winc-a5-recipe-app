@@ -1,5 +1,5 @@
 import { Flex, List, ListItem } from "@chakra-ui/react";
-import { betterKeyThenIndex } from "../utils/globalFunctions";
+import { generateUniqueKey } from "../utils/globalFunctions";
 import { RecipeSubHeading } from "./RecipeSubHeading";
 
 export const RecipeIngredients = ({ ingredients }) => {
@@ -15,7 +15,7 @@ export const RecipeIngredients = ({ ingredients }) => {
       <List listStyleType={"none"} mx={0}>
         {ingredients.map((line, index) => (
           <ListItem
-            key={betterKeyThenIndex("ingr_", line, index)}
+            key={generateUniqueKey("ingr_", line, index)}
             textAlign={"left"}
           >
             {formatText(line)}

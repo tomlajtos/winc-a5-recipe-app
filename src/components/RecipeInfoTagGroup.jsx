@@ -1,5 +1,5 @@
 import { Wrap, WrapItem, Tag, TagLabel, TagLeftIcon } from "@chakra-ui/react";
-import { betterKeyThenIndex, checkData } from "../utils/globalFunctions";
+import { generateUniqueKey, checkData } from "../utils/globalFunctions";
 
 export const RecipeInfoTagGroup = ({
   filteredInfo,
@@ -14,7 +14,7 @@ export const RecipeInfoTagGroup = ({
   return checkData(filteredInfo) ? (
     <Wrap justify={justifyTags}>
       {filteredInfo.map((inf, index) => (
-        <WrapItem key={betterKeyThenIndex(prefix, inf, index)}>
+        <WrapItem key={generateUniqueKey(prefix, inf, index)}>
           <Tag
             fontWeight={600}
             textTransform={textTransform}

@@ -1,9 +1,6 @@
 import { Wrap } from "@chakra-ui/react";
 import { RecipeCard } from "./RecipeCard";
-import {
-  generateKeyPrefix,
-  betterKeyThenIndex,
-} from "../utils/globalFunctions";
+import { generateKeyPrefix, generateUniqueKey } from "../utils/globalFunctions";
 
 export const RecipeList = ({ recipes, handleClick }) => {
   return (
@@ -16,10 +13,10 @@ export const RecipeList = ({ recipes, handleClick }) => {
       {recipes.map((recipe, index) => {
         return (
           <RecipeCard
-            key={betterKeyThenIndex(
+            key={generateUniqueKey(
               generateKeyPrefix("rc", recipe.label),
               recipe,
-              index
+              index,
             )}
             recipe={recipe}
             handleClick={handleClick}

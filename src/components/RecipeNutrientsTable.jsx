@@ -13,14 +13,14 @@ import {
 import { RecipeNutrientsModal } from "./RecipeNutrientsModal";
 import { Button } from "../components/ui/Button";
 
-import { betterKeyThenIndex, filterRecipeInfo } from "../utils/globalFunctions";
+import { generateUniqueKey, filterRecipeInfo } from "../utils/globalFunctions";
 
 export const RecipeNutrientsTable = ({ nutrients }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const showTableData = (recipeInfo) => {
     return recipeInfo.map(({ label, quantity, unit }, index) => (
-      <Tr key={betterKeyThenIndex("nutr_", label, index)}>
+      <Tr key={generateUniqueKey("nutr_", label, index)}>
         <Td maxWidth={"170px"}>{label} </Td>
         <Td isNumeric>{Math.round(quantity)}</Td>
         <Td>{unit}</Td>
@@ -56,7 +56,7 @@ export const RecipeNutrientsTable = ({ nutrients }) => {
                 "CHOCDF",
                 "CHOLE",
                 "NA",
-              ])
+              ]),
             )}
           </Tbody>
           <Tfoot>
